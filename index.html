@@ -23,7 +23,8 @@
     .word-frame { position:absolute; inset:0; padding:0 5vw; display:flex; align-items:center; justify-content:center; text-align:center; opacity:0; transform:translateY(22px); transition:opacity .45s ease,transform .65s cubic-bezier(.2,.7,.2,1); pointer-events:none; }
     .word-frame.active { opacity:1; transform:translateY(0); }
     .word-frame h1 { margin:0; max-width:1500px; font:600 clamp(48px,8.7vw,172px)/.8 Manrope,Arial,sans-serif; letter-spacing:-.085em; text-transform:uppercase; }
-    .word-frame span { color:#ef89bc; }.word-frame em { font-style:normal; color:#ef89bc; }
+    .word-frame span { color:#ef89bc; }
+    .word-frame em { font-style:normal; color:#9a9895; }
     .hero-note { position:absolute; inset:auto 34px 31px; display:flex; justify-content:space-between; color:#ef89bc; font-size:10px; letter-spacing:.13em; text-transform:uppercase; }
     img { width:100%; height:100%; object-fit:cover; display:block; }
     .scroll { display:flex; gap:12px; align-items:center; margin-top:50px; font-size:10px; letter-spacing:.13em; text-transform:uppercase; }
@@ -67,7 +68,7 @@
     .shape-key { display:flex; gap:12px; align-items:center; }
     .shape { display:inline-block; width:22px; height:22px; border:1px solid #171717; transform:rotate(45deg); }
     .shape.circle { border-radius:50%; transform:none; }.shape.line { height:1px; width:36px; border:0; background:#171717; transform:rotate(-35deg); }
-    .portfolio-light .grid { grid-auto-flow:dense; gap:12px; }
+    .portfolio-light .grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
     .portfolio-light .project { background:#deddda; min-height:0; border:0; color:#171717; }
     .portfolio-light .project::after { display:none; }
     .portfolio-light .project img { object-fit:contain; padding:22px; filter:none; transform:none; background:#deddda; }
@@ -75,8 +76,7 @@
     .portfolio-light .project-info { inset:auto 18px 16px; padding-top:38px; color:#111; background:linear-gradient(transparent,rgba(222,221,218,.96) 45%); }
     .portfolio-light .project-title { font:300 clamp(20px,2vw,31px)/1 Manrope,Arial,sans-serif; letter-spacing:-.04em; }
     .portfolio-light .project-type { color:#333; font-weight:500; }
-    .tile-a { grid-column:span 6; height:620px; }.tile-b { grid-column:span 3; height:620px; }.tile-c { grid-column:span 3; height:620px; }
-    .tile-d { grid-column:span 4; height:500px; }.tile-e { grid-column:span 5; height:500px; }.tile-f { grid-column:span 3; height:500px; }
+    .portfolio-light .project,.tile-a,.tile-b,.tile-c,.tile-d,.tile-e,.tile-f,.half { grid-column:auto; width:100%; height:auto; aspect-ratio:4/5; }
     .open-case { border:0; padding:0; width:100%; height:100%; cursor:pointer; background:none; color:inherit; text-align:left; font:inherit; }
     .open-case:focus-visible { outline:2px solid #111; outline-offset:-2px; }
     .case-study { display:none; position:fixed; z-index:100; inset:0; overflow:auto; background:#f2f1ee; color:#151515; }
@@ -144,12 +144,10 @@
 <body>
   <header class="bar"><a class="logo" href="#top">Анна Чулина</a><nav class="menu"><a href="#projects">Проекты</a><a href="#about">Обо мне</a><a href="#contact">Контакты</a></nav></header>
   <main id="top">
-    <section class="hero" aria-label="Вступление"><div class="hero-stage"><div class="word-frame active"><h1>СОЗДАЮ <span>ВИЗУАЛЬНЫЕ</span> <em>ИСТОРИИ</em></h1></div><div class="word-frame"><h1>ОТ ИДЕИ <span>ДО</span> ОБРАЗА</h1></div><div class="word-frame"><h1>ДИЗАЙН <em>С ХАРАКТЕРОМ</em></h1></div><div class="word-frame"><h1>АРТ-ДИРЕКШН <span>· РЕТУШЬ ·</span> ФОТО</h1></div><div class="hero-note"><span>Листайте вниз</span><span>01 — 04</span></div></div></section>
+    <section class="hero" aria-label="Вступление"><div class="hero-stage"><div class="word-frame active"><h1>СОЗДАЮ <span>ВИЗУАЛЬНЫЕ</span> <em>ИСТОРИИ</em></h1></div><div class="word-frame"><h1>ОТ <em>ИДЕИ</em> <span>ДО</span> ОБРАЗА</h1></div><div class="word-frame"><h1>ДИЗАЙН <span>С</span> <em>ХАРАКТЕРОМ</em></h1></div><div class="word-frame"><h1>АРТ-ДИРЕКШН <span>· РЕТУШЬ ·</span> <em>ФОТО</em></h1></div><div class="hero-note"><span>Листайте вниз</span><span>01 — 04</span></div></div></section>
     <section class="statement"><div class="label">01 / Подход</div><div><h2>Каждый проект начинается с идеи, а заканчивается образом, который остаётся в памяти.</h2><p>Я соединяю арт-дирекшн, графический дизайн и работу с фотографией, чтобы визуальная коммуникация выглядела цельно — в журнале, рекламе, digital и пространстве.</p></div></section>
     <section class="projects portfolio-light" id="projects"><div class="projects-head"><div><div class="label">02 / Selected work</div><h2>Works</h2></div><div class="label">Москва · 2020—2026</div></div><div class="filters"><div class="filter-buttons"><button class="active" data-filter="all">Все</button><button data-filter="editorial">Редакционный дизайн</button><button data-filter="advertising">Реклама</button><button data-filter="interior">Пространства</button><button data-filter="branding">Айдентика</button></div><div class="shape-key" aria-hidden="true"><span class="shape"></span><span class="shape circle"></span><span class="shape line"></span></div></div><div class="grid">
       <article class="project tile-a" data-category="editorial"><button class="open-case" data-open-case="catalog"><img src="catalog-case-01.png" alt="Каталог FirePlace в руках"><div class="project-info"><div class="project-title">Каталог FirePlace</div><div class="project-type">Открыть кейс ↗<br>Редизайн · Editorial</div></div></button></article>
-      <article class="project tile-b" data-category="editorial"><button class="open-case" data-open-case="catalog"><img src="catalog-case-02.png" alt="Разворот каталога FirePlace"><div class="project-info"><div class="project-title">Продуктовая система</div><div class="project-type">Каталог<br>Вёрстка</div></div></button></article>
-      <article class="project tile-c" data-category="editorial"><button class="open-case" data-open-case="catalog"><img src="catalog-case-03.png" alt="Каталог FirePlace на рабочем столе"><div class="project-info"><div class="project-title">Interior edition</div><div class="project-type">Каталог<br>Арт-дирекшн</div></div></button></article>
       <article class="project tile-e" data-category="advertising"><button class="open-case" data-open-case="mosbuild"><img src="mosbuild-01.png" alt="Лифлеты Real Flame для MosBuild"><div class="project-info"><div class="project-title">Real Flame × MosBuild</div><div class="project-type">Открыть кейс ↗<br>Полиграфия · выставка</div></div></button></article>
       <article class="project tile-d" data-category="interior"><button class="open-case" data-open-case="realflame"><img src="realflame-03.png" alt="Real Flame — визуализация фирменного магазина"><div class="project-info"><div class="project-title">Real Flame</div><div class="project-type">Открыть кейс ↗<br>Интерьер · визуализация</div></div></button></article>
       <article class="project tile-f" data-category="editorial"><button class="open-case" data-open-case="magazine"><img src="magazine.jpg" alt="Журнал — дизайн и арт-дирекшн"><div class="project-info"><div class="project-title">Журналы</div><div class="project-type">Открыть кейс ↗<br>Арт-дирекшн</div></div></button></article>
