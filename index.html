@@ -115,6 +115,13 @@
     .story-media.paper { background:#eceae6; }
     .story-media.gallery { display:grid; grid-template-columns:1fr 1fr; gap:4px; padding:4px; }
     .story-media.gallery img { min-height:50%; object-fit:cover; }
+    .story-media.hover-swap { position:relative; background:#f4f3f0; }
+    .story-media.hover-swap img { position:absolute; inset:0; transition:opacity .42s ease, transform .65s ease; }
+    .story-media.hover-swap .hover-alt { object-fit:contain; padding:2.2vw; opacity:0; background:#f4f3f0; }
+    .story-media.hover-swap:hover .hover-base,
+    .story-media.hover-swap:focus-within .hover-base { opacity:0; transform:scale(.985); }
+    .story-media.hover-swap:hover .hover-alt,
+    .story-media.hover-swap:focus-within .hover-alt { opacity:1; }
     .case-scroll-swap { position:relative; height:190svh; background:#eceae6; }
     .case-scroll-sticky { position:sticky; top:0; height:100svh; display:grid; grid-template-columns:1fr 1fr; overflow:hidden; }
     .case-scroll-sticky .story-text { background:#eceae6; color:#171717; }
@@ -269,7 +276,7 @@
     <div class="case-scroll-swap"><div class="case-scroll-sticky"><div class="story-text"><div class="label">01 / Каталог</div><h3>От технического каталога к интерьерному изданию</h3><p>Новая редакционная система объединила большой ассортимент продукции, характеристики и атмосферные интерьерные изображения в цельное современное издание.</p></div><div class="swap-media"><img class="swap-base" src="catalog-case-01.webp" alt="Закрытый каталог Real Flame"><img class="swap-next" src="catalog-case-02.webp" alt="Открытый разворот каталога Real Flame"></div></div></div>
     <div class="story-row reverse"><div class="story-text"><div class="label">02 / MosBuild</div><h3>Коммуникация как продолжение выставочного стенда</h3><p>Контрастная типографика, яркие цвета и графические элементы соединили лифлеты, стенд и партнёрскую программу в единый визуальный язык.</p></div><div class="story-media"><img src="mosbuild-01.webp" alt="Лифлеты Real Flame для MosBuild"></div></div>
     <div class="story-row light"><div class="story-text"><div class="label">03 / Мерч</div><h3>Брендированные носители для выставки</h3><p>Шоппер, бутылка и полиграфия поддерживают фирменный стиль и превращают коммуникацию бренда в предметную систему.</p></div><div class="story-media"><img src="rf-merch-cover.webp" alt="Шоппер и бутылка Real Flame"></div></div>
-    <div class="story-row light"><div class="story-text"><div class="label">04 / Упаковка</div><h3>Единый принцип для линейки электроочагов</h3><p>Гибкая упаковочная система адаптируется под разные модели и технические характеристики, сохраняя узнаваемость продукта.</p></div><div class="story-media"><img src="rf-packaging.webp" alt="Упаковка Real Flame"></div></div>
+    <div class="story-row light"><div class="story-text"><div class="label">04 / Упаковка</div><h3>Единый принцип для линейки электроочагов</h3><p>Гибкая упаковочная система адаптируется под разные модели и технические характеристики, сохраняя узнаваемость продукта.</p></div><div class="story-media hover-swap" tabindex="0" aria-label="Наведите, чтобы увидеть разработку упаковки"><img class="hover-base" src="rf-packaging.webp" alt="Готовая упаковка Real Flame"><img class="hover-alt" src="packaging-development.jpg" alt="Развёртки и варианты упаковки Real Flame"></div></div>
     <div class="story-row reverse"><div class="story-text"><div class="label">05 / Пространство</div><h3>Магазин, построенный вокруг огня</h3><p>Планировка, навигация и свет превращают камины в главные объекты экспозиции и формируют цельный образ фирменного пространства.</p></div><div class="story-media"><img src="realflame-03.webp" alt="Магазин Real Flame"></div></div>
     <div class="mega-end"><h3>Один бренд — единый визуальный мир.</h3><div><span>Real Flame</span><span>Каталог · Мерч · Упаковка · Пространство</span></div></div>
   </section>
