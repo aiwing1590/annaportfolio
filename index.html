@@ -1,563 +1,358 @@
 <!DOCTYPE html>
-
 <html lang="ru">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="Портфолио Анны Чулиной — арт-дирекшн, дизайн, ретушь и фотография." name="description"/>
-<title>Анна Чулина — арт-дирекшн и дизайн</title>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
-<style>
-    :root { --ink:#101010; --paper:#e9e7e1; --line:rgba(233,231,225,.24); --muted:#aaa9a4; }
-    * { box-sizing:border-box; }
-    html { scroll-behavior:smooth; }
-    body { margin:0; color:var(--paper); background:var(--ink); font-family:Manrope,Arial,sans-serif; }
-    a { color:inherit; text-decoration:none; }
-    .bar { position:fixed; z-index:20; inset:0 0 auto; display:flex; align-items:center; justify-content:space-between; padding:24px 34px; mix-blend-mode:difference; color:white; }
-    .logo { font-size:12px; letter-spacing:.12em; text-transform:uppercase; font-weight:600; }
-    .menu { display:flex; gap:26px; font-size:11px; letter-spacing:.08em; text-transform:uppercase; }
-    .hero { height:245svh; background:#eeece9; color:#282625; position:relative; }
-    .hero-stage { position:sticky; top:0; height:100svh; overflow:hidden; padding:34px; display:flex; flex-direction:column; justify-content:center; }
-    .eyebrow,.label { color:var(--muted); font-size:10px; letter-spacing:.14em; text-transform:uppercase; }
-    .word-frame { position:absolute; inset:0; padding:0 5vw; display:flex; align-items:center; justify-content:center; text-align:center; opacity:0; transform:translateY(22px); transition:opacity .45s ease,transform .65s cubic-bezier(.2,.7,.2,1); pointer-events:none; }
-    .word-frame.active { opacity:1; transform:translateY(0); }
-    .word-frame h1 { margin:0; max-width:1500px; font:600 clamp(48px,8.7vw,172px)/.8 Manrope,Arial,sans-serif; letter-spacing:-.085em; text-transform:uppercase; }
-    .word-frame span { color:#ef89bc; }
-    .word-frame em { font-style:normal; color:#ef89bc; }
-    .hero-note { position:absolute; inset:auto 34px 31px; display:flex; justify-content:space-between; color:#ef89bc; font-size:10px; letter-spacing:.13em; text-transform:uppercase; }
-    img { width:100%; height:100%; object-fit:cover; display:block; }
-    .scroll { display:flex; gap:12px; align-items:center; margin-top:50px; font-size:10px; letter-spacing:.13em; text-transform:uppercase; }
-    .scroll:before { content:''; width:42px; height:1px; background:currentColor; }
-    .statement { border-top:1px solid var(--line); padding:130px 34px 145px; display:grid; grid-template-columns:1fr 1.2fr; gap:30px; }
-    .statement h2 { margin:0; font:500 clamp(34px,4.6vw,70px)/1.06 Manrope,Arial,sans-serif; letter-spacing:-.04em; }
-    .statement p { margin:4px 0 0; max-width:420px; font-size:14px; line-height:1.75; color:#c8c6c0; }
-    .projects { padding:0 16px 130px; }
-    .projects-head { display:flex; justify-content:space-between; align-items:end; padding:0 18px 22px; border-bottom:1px solid var(--line); }
-    .projects h2 { margin:14px 0 0; font:500 clamp(33px,4vw,61px)/1 Manrope,Arial,sans-serif; letter-spacing:-.04em; }
-    .filters { display:flex; gap:18px; flex-wrap:wrap; padding:25px 18px 32px; }
-    .filters button { cursor:pointer; padding:0; border:0; background:none; color:var(--muted); font:500 10px Manrope,sans-serif; letter-spacing:.12em; text-transform:uppercase; }
-    .filters button.active,.filters button:hover { color:var(--paper); }
-    .grid { display:grid; grid-template-columns:repeat(12,1fr); gap:16px; }
-    .project { position:relative; overflow:hidden; background:#222; min-height:340px; cursor:pointer; }
-    .project:hover img { transform:scale(1.045); filter:saturate(1); }
-    .project img { transition:.65s cubic-bezier(.2,.7,.2,1); filter:saturate(.78); }
-    .project::after { content:''; position:absolute; inset:45% 0 0; background:linear-gradient(transparent,rgba(0,0,0,.66)); pointer-events:none; }
-    .project-info { position:absolute; z-index:1; inset:auto 22px 19px; display:flex; justify-content:space-between; align-items:end; gap:15px; }
-    .project-title { font:500 25px/1.05 Manrope,Arial,sans-serif; }
-    .project-type { color:#d6d3cd; font-size:9px; line-height:1.4; letter-spacing:.11em; text-transform:uppercase; text-align:right; }
-    .wide { grid-column:span 7; height:575px; }.tall { grid-column:span 5; height:575px; }.half { grid-column:span 6; height:490px; }
-    .process { background:var(--paper); color:var(--ink); padding:125px 34px; display:grid; grid-template-columns:1fr 1.6fr; gap:30px; }
-    .process h2 { margin:12px 0 0; font:500 clamp(33px,4.5vw,68px)/1 Manrope,Arial,sans-serif; letter-spacing:-.05em; }
-    .services { border-top:1px solid rgba(16,16,16,.25); }
-    .service { display:grid; grid-template-columns:50px 1fr auto; align-items:center; gap:20px; padding:22px 0; border-bottom:1px solid rgba(16,16,16,.25); }
-    .service span,.service small { font-size:10px; letter-spacing:.1em; text-transform:uppercase; }.service small { color:#65645f; }
-    .service strong { font-size:16px; font-weight:500; }
-    .about { padding:130px 34px; display:grid; grid-template-columns:1fr .75fr; gap:9vw; }
-    .about img { height:590px; object-position:center top; filter:grayscale(.2); }.about-copy { display:flex; flex-direction:column; justify-content:space-between; }
-    .about h2 { margin:15px 0 22px; font:500 clamp(37px,5vw,73px)/.98 Manrope,Arial,sans-serif; letter-spacing:-.045em; }.about p { max-width:400px; color:#c8c6c0; font-size:14px; line-height:1.75; }
-    .contact { border-top:1px solid var(--line); padding:110px 34px 34px; }.contact h2 { max-width:950px; margin:18px 0 80px; font:500 clamp(48px,8vw,126px)/.9 Manrope,Arial,sans-serif; letter-spacing:-.06em; }.contact h2 em { color:#96958f; }
-    .contact-bottom { display:flex; justify-content:space-between; gap:30px; align-items:end; }.mail { border-bottom:1px solid var(--paper); padding-bottom:8px; font-size:clamp(17px,2vw,28px); }.details { color:var(--muted); font-size:10px; letter-spacing:.11em; line-height:1.8; text-transform:uppercase; text-align:right; }
-    .hidden { display:none; }
-    .portfolio-light { background:#f2f1ee; color:#171717; padding:118px 18px 140px; }
-    .portfolio-light .projects-head { border-color:rgba(17,17,17,.22); padding-bottom:30px; }
-    .portfolio-light .projects-head h2 { font-family:Manrope,Arial,sans-serif; font-weight:300; font-size:clamp(58px,9vw,150px); letter-spacing:-.075em; text-transform:uppercase; }
-    .projects-subtitle { margin-top:18px; font-size:clamp(16px,1.5vw,24px); font-weight:300; letter-spacing:.04em; }
-    .portfolio-light .label { color:#777; }
-    .portfolio-light .filters { justify-content:space-between; align-items:center; padding:22px 18px 44px; }
-    .filter-buttons { display:flex; gap:22px; flex-wrap:wrap; }
-    .shape-key { display:flex; gap:12px; align-items:center; }
-    .shape { display:inline-block; width:22px; height:22px; border:1px solid #171717; transform:rotate(45deg); }
-    .shape.circle { border-radius:50%; transform:none; }.shape.line { height:1px; width:36px; border:0; background:#171717; transform:rotate(-35deg); }
-    .portfolio-light .grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
-    .portfolio-light .project { background:#deddda; min-height:0; border:0; color:#171717; }
-    .portfolio-light .project::after { display:none; }
-    .portfolio-light .project img { object-fit:cover; padding:0; filter:none; transform:none; background:#deddda; }
-    .portfolio-light .project:hover img { transform:scale(.98); filter:none; }
-    .portfolio-light .project-info { inset:auto 18px 16px; padding-top:38px; color:#111; background:linear-gradient(transparent,rgba(222,221,218,.96) 45%); }
-    .portfolio-light .project-title { font:300 clamp(20px,2vw,31px)/1 Manrope,Arial,sans-serif; letter-spacing:-.04em; }
-    .portfolio-light .project-type { color:#333; font-weight:500; }
-    .portfolio-light .project,.tile-a,.tile-b,.tile-c,.tile-d,.tile-e,.tile-f,.half { grid-column:auto; width:100%; height:auto; aspect-ratio:4/5; }
-    .portfolio-light .project-title,.portfolio-light .project-type { white-space:nowrap; }
-    .merch-collage { width:100%; height:100%; display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; gap:8px; padding:20px 20px 82px; background:#deddda; }
-    .merch-collage img { width:100%; height:100%; padding:0 !important; object-fit:contain !important; background:#f3f2ef !important; }
-    .merch-collage img:first-child { grid-row:1/-1; }
-    .portfolio-next-divider { margin:74px 18px 0; padding-top:20px; border-top:1px solid rgba(17,17,17,.35); display:flex; justify-content:space-between; color:#777; font-size:10px; letter-spacing:.14em; text-transform:uppercase; }
-    .portfolio-group { padding-top:74px; }
-    .portfolio-light > .portfolio-group, .portfolio-light > .filters { display:none; }
-    .portal-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; padding-top:38px; }
-    .portal-card { position:relative; aspect-ratio:4/5; overflow:hidden; background:#171717; color:#f3f0eb; }
-    .portal-card button { width:100%; height:100%; padding:0; border:0; background:none; color:inherit; cursor:pointer; text-align:left; }
-    .portal-card img { width:100%; height:100%; object-fit:cover; filter:grayscale(.78) saturate(.58) contrast(.92); transform:scale(1.01); transition:filter .6s,transform .8s; }
-    .portal-card::after { content:""; position:absolute; inset:0; pointer-events:none; background:linear-gradient(180deg,rgba(10,10,10,.12),rgba(10,10,10,.05) 45%,rgba(10,10,10,.78)); }
-    .portal-card:hover img { filter:grayscale(.2) saturate(.75); transform:scale(1.035); }
-    .portal-copy { position:absolute; z-index:2; inset:auto 25px 25px; }
-    .portal-copy span { display:block; margin-bottom:13px; font-size:9px; letter-spacing:.16em; text-transform:uppercase; color:#d0cbc4; }
-    .portal-copy h3 { margin:0; font-size:clamp(30px,3.2vw,54px); line-height:.9; letter-spacing:-.065em; font-weight:300; }
-    .mega-case { background:#111; color:#f1eee9; }
-    .mega-hero { min-height:100svh; position:relative; display:flex; align-items:end; overflow:hidden; padding:8vw 5vw 5vw; }
-    .mega-hero img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:grayscale(.45) saturate(.65) brightness(.62); }
-    .mega-hero::after { content:""; position:absolute; inset:0; background:linear-gradient(90deg,rgba(0,0,0,.78),rgba(0,0,0,.12)); }
-    .mega-hero-copy { position:relative; z-index:1; max-width:980px; }
-    .mega-hero h2 { margin:18px 0 25px; font-size:clamp(62px,10vw,180px); line-height:.8; letter-spacing:-.09em; text-transform:uppercase; }
-    .mega-hero p { max-width:570px; color:#d0cbc4; font-size:14px; line-height:1.75; }
-    .story-row { min-height:92svh; display:grid; grid-template-columns:1fr 1fr; align-items:stretch; }
-    /* Единая композиция Works: текст слева, изображение справа. */
-    .story-row .story-text { order:1; }
-    .story-row .story-media { order:2; }
-    .story-text { display:flex; flex-direction:column; justify-content:center; padding:8vw 6vw; background:#111; color:#f1eee9; }
-    .story-row.light .story-text { background:#eceae6; color:#171717; }
-    .story-text h3 { margin:20px 0 25px; max-width:760px; font-size:clamp(38px,4.8vw,82px); line-height:.92; letter-spacing:-.07em; text-wrap:balance; overflow-wrap:anywhere; }
-    .pink { color:#ef89bc; }
-    .story-text p { max-width:610px; margin:0; color:#aaa69f; font-size:15px; line-height:1.75; }
-    .story-text p + p { margin-top:18px; }
-    .story-text h4 { max-width:640px; margin:0 0 14px; font-size:clamp(18px,1.55vw,28px); line-height:1.15; letter-spacing:-.025em; font-weight:400; }
-    .story-row.light .story-text p { color:#5d5954; }
-    .story-text.mosbuild-copy p { font-size:clamp(13px,1.05vw,16px); line-height:1.65; }
-    .story-text .mosbuild-title { text-transform:uppercase; line-height:.82; letter-spacing:-.075em; }
-    .story-media { min-height:620px; background:#0b0b0b; overflow:hidden; display:flex; align-items:center; justify-content:center; }
-    .story-media img { width:100%; height:100%; object-fit:cover; }
-    .story-media.contain img { object-fit:contain; padding:5vw; }
-    .story-media.paper { background:#eceae6; }
-    .story-media.gallery { display:grid; grid-template-columns:1fr 1fr; gap:4px; padding:4px; }
-    .story-media.gallery img { min-height:50%; object-fit:cover; }
-    .story-media.hover-swap { position:relative; background:#f4f3f0; }
-    .story-media.hover-swap img { position:absolute; inset:0; transition:opacity .42s ease, transform .65s ease; }
-    .story-media.hover-swap .hover-alt { object-fit:contain; padding:2.2vw; opacity:0; background:#f4f3f0; }
-    .story-media.hover-swap:hover .hover-base,
-    .story-media.hover-swap:focus-within .hover-base { opacity:0; transform:scale(.985); }
-    .story-media.hover-swap:hover .hover-alt,
-    .story-media.hover-swap:focus-within .hover-alt { opacity:1; }
-    .story-media.hover-pair { position:relative; background:#111; }
-    .story-media.hover-pair > img { position:absolute; inset:0; transition:opacity .42s ease, transform .65s ease; }
-    .story-media.hover-pair .hover-pair-images {
-      position:absolute; inset:0; display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); grid-template-rows:minmax(0, 1fr);
-      gap:2px; padding:2px; background:#111; opacity:0; transition:opacity .42s ease;
-    }
-    .story-media.hover-pair .hover-pair-images img {
-      display:block; width:100%; height:100%; min-width:0; min-height:0;
-      object-fit:contain; object-position:center; padding:clamp(10px,1.2vw,22px);
-      background:#f2f1ed;
-    }
-    .story-media.hover-pair:hover > img,
-    .story-media.hover-pair:focus-within > img { opacity:0; transform:scale(.985); }
-    .story-media.hover-pair:hover .hover-pair-images,
-    .story-media.hover-pair:focus-within .hover-pair-images { opacity:1; }
-    .story-media.hover-cycle { position:relative; background:#f2f1ed; }
-    .story-media.hover-cycle img { position:absolute; inset:0; object-fit:contain; padding:2.2vw; background:#f2f1ed; opacity:0; }
-    .story-media.hover-cycle .cycle-a { opacity:1; }
-    .story-media.hover-cycle:hover .cycle-a,
-    .story-media.hover-cycle:focus-within .cycle-a { animation:cycle-a 6s infinite; }
-    .story-media.hover-cycle:hover .cycle-b,
-    .story-media.hover-cycle:focus-within .cycle-b { animation:cycle-b 6s infinite; }
-    .story-media.hover-cycle:hover .cycle-c,
-    .story-media.hover-cycle:focus-within .cycle-c { animation:cycle-c 6s infinite; }
-    @keyframes cycle-a { 0%,28%{opacity:1} 34%,94%{opacity:0} 100%{opacity:1} }
-    @keyframes cycle-b { 0%,28%{opacity:0} 34%,61%{opacity:1} 67%,100%{opacity:0} }
-    @keyframes cycle-c { 0%,61%{opacity:0} 67%,94%{opacity:1} 100%{opacity:0} }
-    .story-media.editorial-swap img { object-fit:contain; padding:clamp(18px,3vw,54px); background:#eceae6; }
-    /* Рекламные макеты: текст строго слева, полноформатное фото строго справа. */
-    .story-row.advertising-row {
-      grid-template-columns:minmax(0,1fr) minmax(0,1fr);
-    }
-    .story-row.advertising-row > .story-text {
-      grid-column:1;
-      grid-row:1;
-      order:1;
-    }
-    .story-row.advertising-row > .story-media {
-      grid-column:2;
-      grid-row:1;
-      order:2;
-      min-height:92svh;
-      align-self:stretch;
-      background:#111;
-    }
-    .story-row.advertising-row > .story-media.editorial-swap img {
-      inset:0;
-      width:100%;
-      height:100%;
-      padding:clamp(28px,4vw,72px);
-      object-fit:contain;
-      object-position:center;
-      background:#111;
-    }
-    .case-scroll-swap { position:relative; height:190svh; background:#eceae6; }
-    .case-scroll-sticky { position:sticky; top:0; height:100svh; display:grid; grid-template-columns:1fr 1fr; overflow:hidden; }
-    .case-scroll-sticky .story-text { background:#eceae6; color:#171717; }
-    .case-scroll-sticky .story-text p { color:#5d5954; }
-    .swap-media { position:relative; background:#d8d3ca; }
-    .swap-media img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:opacity .15s linear; }
-    .swap-media .swap-next { opacity:0; }
-    .mega-end { min-height:70svh; display:flex; flex-direction:column; justify-content:space-between; padding:8vw 5vw 3vw; background:#ef89bc; color:#111; }
-    .mega-end h3 { max-width:1200px; margin:0; font-size:clamp(58px,8vw,140px); line-height:.84; letter-spacing:-.075em; word-spacing:.1em; text-transform:uppercase; }
-    .mega-end div { display:flex; justify-content:space-between; font-size:10px; letter-spacing:.14em; text-transform:uppercase; }
-    .portfolio-group:first-of-type { padding-top:0; }
-    .group-heading { margin:0 18px 28px; padding-top:18px; border-top:1px solid rgba(17,17,17,.28); display:flex; justify-content:space-between; align-items:end; gap:24px; }
-    .portfolio-group:first-of-type .group-heading { border-top:0; padding-top:0; }
-    .group-heading h3 { margin:0; font-size:clamp(27px,3.3vw,53px); line-height:1; letter-spacing:-.055em; font-weight:300; }
-    .group-heading p { margin:0; color:#76736f; font-size:10px; letter-spacing:.13em; text-transform:uppercase; text-align:right; }
-    .media-fill { position:absolute; inset:0; overflow:hidden; background:#deddda; }
-    .media-fill::before { display:none; }
-    .media-fill > img { position:relative; z-index:1; width:100%; height:100%; object-fit:cover !important; object-position:center; padding:0 !important; background:transparent !important; }
-    .media-fill.stretch > img { object-fit:fill !important; }
-    .project:hover .media-fill > img { transform:scale(.985); }
-    .merch-collage { position:absolute; inset:0; }
-    .static-project { cursor:default; }
-    .static-project:hover img { transform:none !important; }
-    .approach-orbits { display:flex; gap:12px; margin-top:42px; align-items:center; }
-    .approach-orbits span { width:42px; height:42px; border-radius:50%; border:1px solid #ef89bc; }
-    .approach-orbits span:nth-child(2) { background:#ef89bc; border-color:#ef89bc; }
-    .approach-orbits span:nth-child(3) { background:#111; border-color:#111; }
-    .simple-case { background:#f1efeb; }
-    .simple-case-hero { min-height:100svh; display:grid; grid-template-columns:1.05fr .95fr; gap:5vw; align-items:center; padding:105px 5vw 55px; }
-    .simple-case-hero figure { margin:0; height:76vh; background:#deddda; overflow:hidden; position:relative; }
-    .simple-case-hero figure img { object-fit:contain; padding:24px; position:relative; z-index:1; }
-    .simple-case-hero h2 { margin:16px 0 28px; font-size:clamp(48px,6.4vw,112px); line-height:.9; letter-spacing:-.075em; text-transform:uppercase; }
-    .simple-case-hero p { max-width:610px; color:#55514d; font-size:15px; line-height:1.75; }
-    .simple-case-gallery { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; padding:12px; background:#111; }
-    .simple-case-gallery figure { margin:0; min-height:620px; background:#deddda; }
-    .simple-case-gallery figure.full { grid-column:1/-1; }
-    .simple-case-gallery img { object-fit:contain; padding:26px; }
-    .open-case { border:0; padding:0; width:100%; height:100%; cursor:pointer; background:none; color:inherit; text-align:left; font:inherit; }
-    .open-case:focus-visible { outline:2px solid #111; outline-offset:-2px; }
-    .case-study { display:none; position:fixed; z-index:100; inset:0; overflow:auto; background:#f2f1ee; color:#151515; }
-    .case-study.is-open { display:block; }
-    .case-close { position:fixed; z-index:105; top:22px; right:24px; width:50px; height:50px; border:1px solid currentColor; border-radius:50%; background:rgba(242,241,238,.9); font:300 25px Manrope,sans-serif; cursor:pointer; }
-    .case-shelf { min-height:100svh; position:relative; display:grid; grid-template-columns:.7fr 1.3fr; align-items:end; gap:7vw; padding:110px 5vw 0; background:#e7e5e0; overflow:hidden; }
-    .case-meta { align-self:center; max-width:430px; }.case-number { font-size:10px; letter-spacing:.15em; text-transform:uppercase; }
-    .case-meta h2 { margin:20px 0 25px; font:300 clamp(54px,7vw,120px)/.84 Manrope,Arial,sans-serif; letter-spacing:-.08em; text-transform:uppercase; }
-    .case-meta p { max-width:370px; font-size:13px; line-height:1.7; color:#56534f; }
-    .shelf-object { align-self:end; height:82vh; display:flex; align-items:flex-end; justify-content:center; position:relative; }
-    .shelf-object:after { content:''; position:absolute; left:-12%; right:-12%; bottom:0; height:14px; background:#171717; box-shadow:0 16px 30px rgba(0,0,0,.3); }
-    .shelf-object img { width:auto; height:78%; max-width:78%; object-fit:contain; transform:perspective(1000px) rotateY(-9deg) translateY(-14px); filter:drop-shadow(22px 24px 23px rgba(0,0,0,.25)); }
-    .case-geometry { position:absolute; width:190px; height:190px; border:1px solid rgba(0,0,0,.25); border-radius:50%; top:12%; right:8%; }.case-geometry:after { content:''; position:absolute; width:240px; height:1px; background:rgba(0,0,0,.25); top:50%; left:-25px; transform:rotate(45deg); }
-    .case-intro { padding:120px 6vw; display:grid; grid-template-columns:1fr 1.5fr; gap:7vw; }
-    .case-intro h3 { margin:0; font:300 clamp(44px,6vw,96px)/.95 Manrope,sans-serif; letter-spacing:-.07em; text-transform:uppercase; }
-    .case-copy { display:grid; grid-template-columns:1fr 1fr; gap:44px; border-top:1px solid #aaa; padding-top:20px; }.case-copy strong { display:block; margin-bottom:18px; font-size:10px; letter-spacing:.13em; text-transform:uppercase; }.case-copy p { margin:0; font-size:14px; line-height:1.7; color:#54514c; }
-    .case-spread { background:#090909; color:#f1f0ec; padding:9vw 4vw; text-align:center; }.case-spread .label { color:#888; margin-bottom:50px; }.case-spread img { max-width:1500px; height:auto; margin:auto; object-fit:contain; box-shadow:0 30px 70px #000; }
-    .case-gallery { padding:12px; display:grid; grid-template-columns:1fr 1fr; gap:12px; background:#f2f1ee; }.case-gallery figure { margin:0; min-height:620px; background:#deddda; display:flex; align-items:center; justify-content:center; }.case-gallery img { width:100%; height:100%; max-height:760px; object-fit:contain; padding:28px; }.case-gallery .full { grid-column:1/-1; min-height:760px; background:#111; }.case-gallery .full img { max-height:880px; }
-    .case-end { min-height:76vh; display:flex; flex-direction:column; justify-content:space-between; padding:80px 5vw 36px; background:#171717; color:#eee; }.case-end h3 { margin:0; max-width:1000px; font:300 clamp(58px,8vw,136px)/.86 Manrope,sans-serif; letter-spacing:-.08em; text-transform:uppercase; }.case-end div { display:flex; justify-content:space-between; font-size:10px; letter-spacing:.14em; text-transform:uppercase; }
-    .realflame-case .case-shelf { background:#efefed; }
-    .realflame-case .case-geometry { border-radius:0; border-color:#ef89bc; transform:rotate(45deg); }
-    .realflame-case .case-geometry:after { background:#ef89bc; }
-    .realflame-case .shelf-object:after { height:2px; background:#ef89bc; box-shadow:none; }
-    .realflame-case .shelf-object img { width:100%; height:auto; max-width:100%; transform:none; filter:drop-shadow(0 26px 35px rgba(0,0,0,.16)); }
-    .realflame-case .case-spread { background:#0d0d0d; }
-    .catalog-case { background:#f1efeb; }
-    .catalog-title-screen { min-height:100svh; padding:110px 5vw 55px; display:grid; grid-template-columns:1.08fr .92fr; align-items:center; gap:6vw; background:#111; color:#f4f1ed; }
-    .catalog-title-copy { display:flex; min-height:70vh; flex-direction:column; justify-content:space-between; }
-    .catalog-title-screen h2 { max-width:1000px; margin:38px 0; font:300 clamp(48px,6.5vw,116px)/.88 Manrope,Arial,sans-serif; letter-spacing:-.085em; text-transform:uppercase; }
-    .catalog-title-screen h2 span { color:#ef89bc; }
-    .catalog-title-meta { display:flex; justify-content:space-between; gap:30px; color:#a5a19c; font-size:10px; letter-spacing:.14em; text-transform:uppercase; }
-    .catalog-title-image { height:72vh; margin:0; overflow:hidden; background:#ece9e4; }
-    .catalog-title-image img { object-fit:cover; object-position:center; }
-    .catalog-summary { padding:120px 6vw 145px; display:grid; grid-template-columns:.8fr 1.2fr; gap:8vw; align-items:start; }
-    .catalog-summary .label { color:#78736e; }
-    .catalog-summary h3 { max-width:950px; margin:0 0 38px; font:300 clamp(48px,6.5vw,112px)/.92 Manrope,Arial,sans-serif; letter-spacing:-.075em; }
-    .catalog-summary p { max-width:720px; margin:0; font-size:clamp(15px,1.35vw,22px); line-height:1.65; color:#53504c; }
-    .catalog-showcase { display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:12px; background:#111; }
-    .catalog-showcase figure { margin:0; background:#e8e5df; }
-    .catalog-showcase img { width:100%; height:100%; object-fit:cover; }
-    .catalog-showcase figure:first-child { grid-column:1/-1; }
-    .catalog-showcase figure:first-child img { max-height:1100px; object-fit:contain; background:#111; }
-    .mosbuild-case { background:#f0efec; }
-    .mosbuild-cover { min-height:100svh; display:grid; grid-template-columns:.8fr 1.2fr; gap:5vw; align-items:center; padding:105px 5vw 55px; background:#0d0d0d; color:#f5f2ee; }
-    .mosbuild-cover h2 { margin:18px 0 28px; font:300 clamp(62px,8vw,150px)/.83 Manrope,Arial,sans-serif; letter-spacing:-.085em; text-transform:uppercase; }
-    .mosbuild-cover h2 span { color:#ef89bc; }
-    .mosbuild-cover p { max-width:500px; margin:0; color:#c5c1bd; font-size:14px; line-height:1.75; }
-    .mosbuild-cover figure { margin:0; height:78vh; background:#e7e4e0; overflow:hidden; }
-    .mosbuild-cover img { object-fit:contain; padding:20px; }
-    .mosbuild-story { padding:130px 6vw; display:grid; grid-template-columns:.65fr 1.35fr; gap:8vw; }
-    .mosbuild-story h3 { margin:0 0 50px; font:300 clamp(48px,6.4vw,112px)/.9 Manrope,Arial,sans-serif; letter-spacing:-.075em; }
-    .mosbuild-story p { max-width:780px; margin:0 0 26px; color:#514e49; font-size:clamp(15px,1.25vw,21px); line-height:1.7; }
-    .mosbuild-visual { padding:12px; background:#111; }
-    .mosbuild-visual img { width:100%; height:auto; object-fit:contain; background:#fff; }
-    /* Единая тонкая типографика в духе Baron & Baron */
-    body, button, a, input, textarea, select { font-family:Manrope,Arial,sans-serif; font-weight:300; }
-    h1, h2, h3, h4, h5, h6, .statement h2, .projects h2, .project-title, .about h2, .contact h2, .case-meta h2, .case-intro h3, .case-end h3 { font-family:Manrope,Arial,sans-serif !important; font-weight:300 !important; }
-    .logo, .menu, .eyebrow, .label, .filters button, .project-type, .details, .case-number { font-weight:300; }
-    .statement { grid-template-columns:minmax(150px,.28fr) minmax(0,1.72fr); gap:42px; }
-    .statement h2 { max-width:1220px; font-size:clamp(42px,5.3vw,92px); line-height:.98; letter-spacing:-.065em; }
-    .statement p { max-width:720px; }
-    .about img { object-fit:contain; object-position:center; background:#080808; padding:18px; filter:none; }
-    @media (max-width:720px) { .bar { padding:18px; }.menu a:not(:last-child){display:none}.hero-stage{padding:18px}.hero-note{inset:auto 18px 22px}.word-frame{padding:76px 14px 54px}.word-frame h1{font-size:15.5vw;line-height:.88}.statement,.process,.about{padding:84px 18px;display:block}.statement p{margin-top:32px}.portfolio-light{padding:80px 8px}.projects-head{padding:0 10px 19px}.portfolio-light .projects-head h2{font-size:19vw}.portal-grid{display:block}.portal-card{margin-bottom:10px}.story-row{display:flex;min-height:0;flex-direction:column}.story-text{padding:90px 20px}.story-text h3{font-size:12vw}.story-media{min-height:58vh}.story-row.advertising-row>.story-media{min-height:58vh}.story-media.contain img{padding:25px}.case-scroll-swap{height:175svh}.case-scroll-sticky{display:flex;flex-direction:column;height:100svh}.case-scroll-sticky .story-text{height:45%;padding:80px 20px 35px}.swap-media{height:55%}.mega-hero{padding:110px 20px 45px}.mega-hero h2{font-size:20vw}.mega-end{padding:80px 20px 25px}.mega-end div{display:block;line-height:2}.process h2{margin-bottom:45px}.service{grid-template-columns:30px 1fr auto}.service strong{font-size:13px}.about img{height:460px}.about-copy{padding-top:44px}.contact{padding:82px 18px 20px}.contact h2{margin-bottom:55px}.contact-bottom{display:block}.details{text-align:left;margin-top:25px}.case-close{top:14px;right:14px} }
-  
-/* Lightweight WORKS grid */
-.portal-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding-top:38px}
-.portal-card img{filter:none;transform:none;transition:transform .35s ease}
-.portal-card:hover img{filter:none;transform:scale(1.015)}
-.portal-card button:focus-visible{outline:2px solid #ef89bc;outline-offset:-2px}
-@media (max-width:980px){.portal-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:720px){.portal-grid{display:grid;grid-template-columns:1fr}.portal-card{margin-bottom:0}}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Анна Чулина — портфолио</title>
+  <meta name="description" content="Портфолио Анны Чулиной: презентации, полиграфия, упаковка, редакционный дизайн и e-commerce макеты.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#0e0e0f;--paper:#f2f0eb;--muted:#8d8a84;--text:#161616;--line:rgba(255,255,255,.12);--pink:#ef89bc;--card:#e5e2dc;}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Manrope,Arial,sans-serif;background:var(--bg);color:var(--paper)}
+    a{color:inherit;text-decoration:none}
+    img{display:block;width:100%;height:100%;object-fit:cover}
+    .container{padding:0 22px}
+    .nav{position:sticky;top:0;z-index:40;display:flex;justify-content:space-between;align-items:center;padding:22px;background:linear-gradient(180deg,rgba(14,14,15,.92),rgba(14,14,15,.72));backdrop-filter:blur(14px)}
+    .nav .brand{font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:700}
+    .nav .links{display:flex;gap:22px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#c4c0bb}
+    .hero{min-height:100svh;display:grid;place-items:center;padding:70px 22px 30px;background:#ece9e4;color:#111}
+    .hero-inner{max-width:1400px;width:100%}
+    .eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#77736f}
+    .hero h1{margin:24px 0 18px;font-size:clamp(56px,10vw,150px);line-height:.84;letter-spacing:-.085em;font-weight:300;text-transform:uppercase;max-width:1250px}
+    .hero h1 span{color:var(--pink)}
+    .hero p{max-width:740px;font-size:16px;line-height:1.75;color:#57534f}
+    .hero-foot{margin-top:40px;display:flex;justify-content:space-between;gap:20px;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:#77736f}
 
-    .story-media.clean-frame,
-    .story-media.full-bleed { background:transparent; }
-    .story-media.clean-frame img {
-      object-fit:contain !important;
-      object-position:center !important;
-      width:100%; height:100%;
-      padding:0 !important;
-      background:transparent !important;
-    }
-    .story-media.clean-frame.paper { background:#eceae6; }
-    .story-media.clean-frame.dark-surface { background:#111; }
-    .story-media.hover-swap.clean-frame { background:transparent; }
-    .story-media.hover-swap.clean-frame img {
-      object-fit:contain !important;
-      object-position:center !important;
-      padding:0 !important;
-      background:transparent !important;
-    }
-    .story-media.hover-cycle.full-bleed { background:transparent; }
-    .story-media.hover-cycle.full-bleed img {
-      object-fit:contain !important;
-      object-position:center !important;
-      padding:0 !important;
-      background:transparent !important;
-    }
-    .story-media.hover-cycle.full-bleed.paper { background:#eceae6; }
-    .story-media.hover-cycle.full-bleed.dark-surface { background:#111; }
-    .catalog-summary strong,
-    .vtb-copy strong { display:block; margin-bottom:10px; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:#171717; }
-    .catalog-summary p + p,
-    .vtb-copy p + p { margin-top:22px; }
-    .catalog-wilding .story-text p { max-width:780px; }
-    .vtb-case .case-end h3 { max-width:1100px; }
+    .grid-wrap{background:#f2f1ee;color:#171717;padding:90px 0 120px}
+    .section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;padding:0 22px 28px;border-bottom:1px solid rgba(0,0,0,.15)}
+    .section-head h2{margin:12px 0 0;font-size:clamp(46px,8vw,112px);line-height:.88;letter-spacing:-.08em;font-weight:300;text-transform:uppercase}
+    .section-head p{margin:0;max-width:450px;color:#6a6661;line-height:1.6}
+    .portal-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;padding:28px 22px 0}
+    .portal-card{position:relative;aspect-ratio:4/5;overflow:hidden;background:#111;border:0;padding:0;color:#fff;text-align:left;cursor:pointer}
+    .portal-card img{transition:transform .6s ease,filter .6s ease;filter:grayscale(.15) saturate(.9)}
+    .portal-card:hover img{transform:scale(1.04);filter:none}
+    .portal-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.08) 50%,rgba(0,0,0,.82))}
+    .portal-copy{position:absolute;left:20px;right:20px;bottom:18px;z-index:2}
+    .portal-copy span{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#d9d5cf;margin-bottom:9px}
+    .portal-copy h3{margin:0;font-size:clamp(24px,2.2vw,34px);font-weight:300;letter-spacing:-.045em}
 
-    .story-row.reverse .story-text { order:2; }
-    .story-row.reverse .story-media { order:1; }
-    .story-text h3 .line { display:block; }
-    .story-text h3 .line.inline { display:inline; }
-    .story-text h3 .line-gap { display:block; margin-top:.08em; }
-    .case-end h3 .pink { color:#ef89bc; }
-    .catalog-title-intro { max-width:760px; margin-top:10px; }
-    .catalog-title-intro-block + .catalog-title-intro-block { margin-top:26px; }
-    .catalog-title-intro-block strong {
-      display:block; margin-bottom:10px; font-size:12px; letter-spacing:.12em;
-      text-transform:uppercase; color:#ef89bc;
-    }
-    .catalog-title-intro-block p {
-      margin:0; max-width:680px; color:#d0cbc4; font-size:15px; line-height:1.72;
-    }
-    .catalog-title-copy { gap:20px; }
-    .catalog-title-screen .catalog-title-image img { object-fit:contain; padding:0; background:#111; }
-    .catalog-case .case-end { min-height:100svh; }
-    .dev-prime-row .story-media { min-height:100svh; align-self:stretch; }
-    .dev-prime-row .story-media img { object-fit:contain !important; width:100%; height:100%; background:transparent; }
-    .afi-cycle { background:#111 !important; }
-    .afi-cycle img { object-fit:contain !important; padding:2.6vw !important; background:#111 !important; }
-    .vtb-case .story-row.statement-follow { min-height:100svh; display:block; }
-    .vtb-case .story-row.statement-follow .case-end { min-height:100svh; }
-    .vtb-case .simple-case-hero figure img { object-fit:contain; }
-    .magazine-pair .story-media { background:#f1efeb; }
-    .magazine-pair .story-media img { object-fit:contain; padding:0 !important; background:#f1efeb !important; }
-    .magazine-spreads {
-      min-height:92svh; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px;
-      padding:10px; background:#eceae6;
-    }
-    .magazine-spreads img {
-      width:100%; height:100%; object-fit:contain; background:#f8f7f4; padding:12px;
-    }
-    .magazine-single img { object-fit:contain !important; padding:20px !important; background:#eceae6 !important; }
-    .editorial-case .mega-hero img { object-fit:contain; object-position:right center; filter:none; background:#111; }
-    .editorial-case .mega-hero::after { background:linear-gradient(90deg,rgba(0,0,0,.86),rgba(0,0,0,.54) 38%,rgba(0,0,0,.08)); }
-    .editorial-case .mega-end h3 { text-transform:none; }
-    @media (max-width:1100px){
-      .magazine-spreads { grid-template-columns:1fr; min-height:unset; }
-      .catalog-title-screen { grid-template-columns:1fr; }
-    }
+    .case-study{display:none;position:fixed;inset:0;z-index:100;overflow:auto;background:#f1efeb;color:#161616}
+    .case-study.is-open{display:block}
+    .case-close{position:fixed;top:18px;right:18px;z-index:110;width:52px;height:52px;border-radius:50%;border:1px solid rgba(0,0,0,.18);background:rgba(241,239,235,.92);font-size:28px;cursor:pointer}
+    .case-hero{min-height:100svh;display:grid;grid-template-columns:1.02fr .98fr;gap:5vw;align-items:center;padding:86px 5vw 40px;background:#ece9e4}
+    .case-hero.reverse{grid-template-columns:.95fr 1.05fr}
+    .case-hero figure{margin:0;height:76vh;background:#dfdcd6;overflow:hidden}
+    .case-hero figure img{object-fit:contain;padding:24px}
+    .case-hero .dark-frame{background:#111}
+    .case-hero .dark-frame img{background:#111}
+    .case-meta{display:flex;flex-direction:column;justify-content:center;min-height:74vh}
+    .case-number{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#73706b}
+    .case-hero h2{margin:22px 0 24px;font-size:clamp(50px,7vw,118px);line-height:.88;letter-spacing:-.085em;font-weight:300;text-transform:uppercase}
+    .case-hero h2 span{color:var(--pink)}
+    .case-hero p{max-width:640px;font-size:16px;line-height:1.8;color:#585550}
 
+    .story-row{display:grid;grid-template-columns:1fr 1fr;align-items:stretch;min-height:100svh}
+    .story-row.light .story-text{background:#f2f0eb}
+    .story-text{padding:8vw 5vw;display:flex;flex-direction:column;justify-content:center;background:#111;color:#f5f2ed}
+    .story-text .label{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#8d8984;margin-bottom:18px}
+    .story-text h3{margin:0 0 24px;font-size:clamp(42px,6vw,102px);line-height:.88;letter-spacing:-.08em;font-weight:300;text-transform:uppercase}
+    .story-text h3 .pink{color:var(--pink)}
+    .story-text p{max-width:620px;font-size:15px;line-height:1.8;color:#c7c3be;margin:0 0 18px}
+    .story-row.light .story-text{color:#171717}
+    .story-row.light .story-text p{color:#5d5955}
+    .story-text.pink-slide{background:var(--pink);color:#111;text-align:left}
+    .story-text.pink-slide .label,.story-text.pink-slide p{color:rgba(0,0,0,.72)}
+    .story-text.pink-slide h3{max-width:1200px}
+    .story-media{position:relative;min-height:100svh;background:#d7d2ca;overflow:hidden}
+    .story-media.paper img{object-fit:contain;padding:32px;background:#ece9e4}
+    .story-media.dark img{background:#111}
+    .story-media.clean img{object-fit:contain;padding:24px}
+    .story-media.fill img{object-fit:cover}
 
-    .portal-card button { position:relative; }
-    .portal-card .card-hover { position:absolute; inset:0; opacity:0; }
-    .portal-card:hover .card-base,
-    .portal-card:focus-within .card-base { opacity:0; }
-    .portal-card:hover .card-hover,
-    .portal-card:focus-within .card-hover { opacity:1; }
+    .hover-swap .hover-alt,
+    .hover-cycle .cycle-img{position:absolute;inset:0;opacity:0;transition:opacity .32s ease}
+    .hover-swap .hover-base{position:absolute;inset:0}
+    .hover-swap:hover .hover-alt,.hover-swap:focus-within .hover-alt{opacity:1}
+    .hover-cycle .cycle-img.active{opacity:1}
 
-    /* Строго перечисленные правки */
-    .story-media.strict-two-image { position:relative; }
-    .story-media.strict-two-image img {
-      object-fit:contain !important;
-      object-position:center !important;
-      padding:0 !important;
-    }
-    .story-media.strict-two-image.dark-surface img { background:#111 !important; }
-    .story-media.strict-two-image.paper img { background:#eceae6 !important; }
-    .vtb-intro-dark {
-      grid-template-columns:1fr 1fr;
-      gap:0;
-      padding:0;
-      background:#eceae6;
-    }
-    .vtb-intro-dark > div {
-      min-height:100svh;
-      padding:105px 5vw 55px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      background:#111;
-      color:#f1eee9;
-    }
-    .vtb-intro-dark > div p { color:#c5c1bd; max-width:640px; }
-    .vtb-intro-dark > figure {
-      margin:0;
-      height:100svh;
-      background:#eceae6;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      overflow:hidden;
-    }
-    .vtb-intro-dark > figure img {
-      width:100%;
-      height:100%;
-      object-fit:contain !important;
-      object-position:center !important;
-      padding:clamp(16px,2vw,34px) !important;
-      background:#eceae6;
-    }
-    .newspapers-hero figure img {
-      object-fit:contain !important;
-      object-position:center !important;
-      padding:0 !important;
-    }
-    @media (max-width:720px) {
-      .vtb-intro-dark { display:flex; flex-direction:column; }
-      .vtb-intro-dark > div { min-height:auto; padding:100px 20px 60px; }
-      .vtb-intro-dark > figure { height:72svh; }
-    }
+    .gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding:14px;background:#111}
+    .gallery figure{margin:0;background:#e4e1db;min-height:540px;overflow:hidden}
+    .gallery figure img{object-fit:contain;padding:22px;background:#e4e1db}
+    .gallery figure.full{grid-column:1 / -1;min-height:640px}
+    .gallery figure.dark{background:#151515}
+    .gallery figure.dark img{background:#151515}
 
-    .vtb-black-square {
-      width:clamp(150px,18vw,240px);
-      aspect-ratio:1;
-      margin-top:42px;
-      background:#111;
+    .case-end{min-height:56svh;padding:7vw 5vw 3vw;background:#171717;color:#f2efe9;display:flex;flex-direction:column;justify-content:space-between}
+    .case-end h3{margin:0;max-width:1100px;font-size:clamp(46px,7vw,118px);line-height:.86;letter-spacing:-.08em;font-weight:300;text-transform:uppercase}
+    .case-end h3 .pink{color:var(--pink)}
+    .case-end div{display:flex;justify-content:space-between;gap:20px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#b4afa8}
+
+    @media (max-width: 1024px){
+      .portal-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .case-hero,.story-row,.gallery{grid-template-columns:1fr}
+      .case-hero figure,.story-media{min-height:58svh;height:auto}
+      .story-text,.case-meta{min-height:auto}
+      .case-end div,.hero-foot,.section-head{flex-direction:column;align-items:flex-start}
     }
-    .editorial-case .mega-end.editorial-left,
-    .editorial-case .mega-end.editorial-left h3,
-    .editorial-case .mega-end.editorial-left div {
-      text-align:left;
+    @media (max-width: 720px){
+      .nav .links{display:none}
+      .portal-grid{grid-template-columns:1fr}
+      .hero p,.case-hero p,.story-text p{font-size:14px}
+      .case-close{width:46px;height:46px}
+      .story-media.paper img,.story-media.clean img,.gallery figure img,.case-hero figure img{padding:14px}
     }
-    .editorial-case .mega-end.editorial-left div {
-      justify-content:flex-start;
-      align-items:flex-start;
-      gap:32px;
-      flex-wrap:wrap;
-    }
-    .newspapers-hero {
-      padding:0 5vw 0 0;
-      gap:5vw;
-      background:#eeece9;
-    }
-    .newspapers-hero > div:first-child {
-      min-height:100svh;
-      padding:105px 5vw 55px;
-      background:#111;
-      color:#f5f2ee;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-    }
-    .newspapers-hero > div:first-child p { color:#c5c1bd; }
-    .newspapers-hero figure { margin:55px 0; }
-    @media (max-width:720px) {
-      .newspapers-hero { padding:0; gap:0; }
-      .newspapers-hero > div:first-child { min-height:auto; padding:100px 20px 60px; }
-      .newspapers-hero figure { margin:0; }
-      .vtb-black-square { width:150px; margin-top:32px; }
-    }
-</style>
+  </style>
 </head>
 <body>
-<header class="bar"><a class="logo" href="#top">Анна Чулина</a><nav class="menu"><a href="#projects">Проекты</a><a href="#about">Обо мне</a><a href="#contact">Контакты</a></nav></header>
-<main id="top">
-<section aria-label="Вступление" class="hero"><div class="hero-stage"><div class="word-frame active"><h1>СОЗДАЮ <span>ВИЗУАЛЬНЫЕ</span><br/>ИСТОРИИ</h1></div><div class="word-frame"><h1>АРТ-ДИРЕКШН <span>РЕТУШЬ</span><br/>ФОТО</h1></div><div class="word-frame"><h1>ОТ ИДЕИ <span>ДО</span> ОБРАЗА</h1></div><div class="word-frame"><h1>ДИЗАЙН <span>С ХАРАКТЕРОМ</span></h1></div><div class="hero-note"><span>Листайте вниз</span><span>01 — 04</span></div></div></section>
-<section class="statement"><div><div class="label">01 / Подход</div><div aria-hidden="true" class="approach-orbits"><span></span><span></span><span></span></div></div><div><h2>Каждый проект начинается с идеи, а заканчивается образом, который остаётся в памяти.</h2><p>Я соединяю арт-дирекшн, графический дизайн и работу с фотографией,<br/>чтобы визуальная коммуникация выглядела цельно — в журнале, рекламе, digital и пространстве.</p></div></section>
-<section class="projects portfolio-light" id="projects"><div class="projects-head"><div><div class="label">02 / Selected work</div><h2>Works</h2></div><div class="label">Москва · 2020—2026</div></div>
-<div class="portal-grid"><article class="portal-card"><button aria-label="REAL FLAME" class="open-case" data-open-case="realflame-master" type="button"><img alt="Real Flame — айдентика, каталог, упаковка и пространство" decoding="async" loading="lazy" src="rf-merch-cover.webp"/><div class="portal-copy"><span>01 / Brand world</span><h3>REAL FLAME</h3></div></button></article><article class="portal-card"><button aria-label="Development" class="open-case" data-open-case="development" type="button"><img alt="Development — наружная реклама, презентации и коммуникации для девелопмента" decoding="async" loading="lazy" src="development-card-clean.webp"/><div class="portal-copy"><span>02 / Development</span><h3>Development</h3></div></button></article><article class="portal-card"><button aria-label="Catalog" class="open-case" data-open-case="catalog" type="button"><img alt="Каталог светильников Lunera" class="card-base" decoding="async" loading="lazy" src="catalog-main-2026.webp"/><img alt="Каталог Lunera и разворот" class="card-hover" decoding="async" loading="lazy" src="catalog-hover-2026.webp"/><div class="portal-copy"><span>03 / Editorial</span><h3>Catalog</h3></div></button></article><article class="portal-card"><button aria-label="ВТБ" class="open-case" data-open-case="vtb" type="button"><img alt="Кампания ВТБ. Семейная ипотека" decoding="async" loading="lazy" src="vtb-print-new.webp"/><div class="portal-copy"><span>04 / Finance</span><h3>ВТБ</h3></div></button></article><article class="portal-card"><button aria-label="Журналы" class="open-case" data-open-case="editorial" type="button"><img alt="Журнальный и редакционный дизайн" decoding="async" loading="lazy" src="mag-cosmo-cover.webp"/><div class="portal-copy"><span>05 / Editorial design</span><h3>Журналы</h3></div></button></article><article class="portal-card"><button aria-label="Газеты" class="open-case" data-open-case="newspapers" type="button"><img alt="Газетная полоса Центр+" decoding="async" loading="lazy" src="newspaper-main.webp"/><div class="portal-copy"><span>06 / Print design</span><h3>Газеты</h3></div></button></article><article class="portal-card"><button aria-label="Презентации" class="open-case" data-open-case="presentation" type="button"><img alt="Презентация для Джилекс" decoding="async" loading="lazy" src="presentation-djileks.webp"/><div class="portal-copy"><span>07 / Presentation design</span><h3>Презентации</h3></div></button></article><article class="portal-card"><button aria-label="Карточки товара" class="open-case" data-open-case="product-cards" type="button"><img alt="Карточка товара Minty Home" decoding="async" loading="lazy" src="product-card-minty.webp"/><div class="portal-copy"><span>08 / E-commerce</span><h3>Карточки товара</h3></div></button></article><article class="portal-card"><button aria-label="Упаковка" class="open-case" data-open-case="packaging" type="button"><img alt="Дизайн упаковки" decoding="async" loading="lazy" src="rf-packaging.webp"/><div class="portal-copy"><span>09 / Packaging design</span><h3>Упаковка</h3></div></button></article></div>
-</section>
-<section class="process"><div><div class="label">03 / Возможности</div><h2>От первого референса до готового визуального мира.</h2></div><div class="services"><div class="service"><span>01</span><strong>Арт-дирекшн и визуальные концепции</strong><small>Идея</small></div><div class="service"><span>02</span><strong>Графический и редакционный дизайн</strong><small>Дизайн</small></div><div class="service"><span>03</span><strong>Ретушь и подготовка изображений</strong><small>Постпродакшн</small></div><div class="service"><span>04</span><strong>Фотосъёмка и организация продакшна</strong><small>Фото</small></div></div></section>
-<section class="about" id="about"><img alt="Графическая работа с лабиринтом" decoding="async" loading="lazy" src="about-maze.webp"/><div class="about-copy"><div><div class="label">04 / Обо мне</div><h2>Визуал, у которого есть характер.</h2><p>Я — графический дизайнер, фотограф и ретушер из Москвы. Работала с глянцевыми изданиями, рекламными материалами, брендами и визуализацией пространств.</p><p>Люблю точную композицию, выразительную типографику и решения, которые не становятся «просто красивыми картинками».</p></div><div class="label">Открыта к проектам и сотрудничеству</div></div></section>
-</main>
-<footer class="contact" id="contact"><div class="label">05 / Контакты</div><h2>Есть задача?<br/><em>Давайте обсудим.</em></h2><div class="contact-bottom"><a class="mail" href="mailto:Anfree_me@mail.ru">Anfree_me@mail.ru</a><div class="details">Москва<br/>Арт-дирекшн · дизайн · ретушь</div></div></footer>
-<section aria-label="Все проекты Real Flame" class="case-study mega-case" id="realflame-master-case"><button aria-label="Закрыть кейс" class="case-close">×</button>
-<div class="mega-hero"><img alt="Мерч Real Flame" decoding="async" loading="lazy" src="rf-merch-cover.webp"/><div class="mega-hero-copy"><div class="case-number">01 / Brand world</div><h2>Real Flame</h2><p>Айдентика бренда в разных масштабах: от продуктового каталога и упаковки до выставочной коммуникации, мерча и пространства фирменного магазина.</p></div></div>
-<div class="case-scroll-swap"><div class="case-scroll-sticky"><div class="story-text"><div class="label">01 / Каталог</div><h3><span class="pink">Редизайн</span> продуктового каталога для интерьерного бренда</h3><p>Задача проекта заключалась в создании нового современного каталога, который объединит большой ассортимент продукции, технические характеристики и атмосферные интерьерные изображения.</p></div><div class="swap-media"><img alt="Закрытый каталог Real Flame" class="swap-base" decoding="async" loading="lazy" src="catalog-case-01.webp"/><img alt="Открытый разворот каталога Real Flame" class="swap-next" decoding="async" loading="lazy" src="catalog-case-02.webp"/></div></div></div>
-<div class="story-row"><div class="story-text mosbuild-copy"><div class="label">02 / MosBuild</div><h3 class="mosbuild-title">REAL<br/>FLAME ×<br/><span class="pink">MOSBUILD</span></h3><p>Моей задачей была разработка рекламных лифлетов для партнёров<br/>и клиентов выставки MosBuild.</p><p>Я продолжила визуальный язык стенда в полиграфии: использовала контрастную типографику, яркие цвета и графические элементы выставочной концепции.</p><p>В результате лифлеты стали частью единой коммуникации бренда.<br/>Они поддерживали оформление стенда, привлекали внимание посетителей<br/>и помогали понятно представить партнёрскую программу Real Flame.</p></div><div aria-label="Наведите, чтобы увидеть разворот лифлета" class="story-media hover-swap" tabindex="0"><img alt="Лифлеты Real Flame для MosBuild" class="hover-base" decoding="async" loading="lazy" src="mosbuild-01.webp"/><img alt="Разворот рекламного лифлета Real Flame" class="hover-alt" decoding="async" loading="lazy" src="mosbuild-hover.webp"/></div></div>
-<div class="story-row light"><div class="story-text"><div class="label">03 / Мерч</div><h3><span class="pink">Брендирование</span> носителей для выставки</h3><p>Шоппер, бутылка и полиграфия поддерживают фирменный стиль и превращают коммуникацию бренда в предметную систему.</p></div><div class="story-media"><img alt="Шоппер и бутылка Real Flame" decoding="async" loading="lazy" src="rf-merch-cover.webp"/></div></div>
-<div class="story-row"><div class="story-text"><div class="label">04 / Упаковка</div><h3><span class="pink">Разработка упаковки</span> для электроочагов Real Flame</h3><p>Я разработала дизайн упаковки для линейки электроочагов Real Flame.</p><p>Задача заключалась в том, чтобы создать единый визуальный принцип, который можно адаптировать под разные модели и технические характеристики.</p></div><div aria-label="Наведите, чтобы последовательно увидеть три кадра упаковки" class="story-media hover-cycle" tabindex="0"><img alt="Готовая упаковка Real Flame" class="cycle-a" decoding="async" loading="lazy" src="rf-packaging.webp"/><img alt="Развёртки и варианты упаковки Real Flame" class="cycle-b" decoding="async" loading="lazy" src="packaging-development.webp"/><img alt="Развёртка упаковки Real Flame с двумя цветовыми вариантами" class="cycle-c" decoding="async" loading="lazy" src="packaging-dieline.webp"/></div></div>
-<div class="story-row reverse light"><div class="story-text"><div class="label">05 / Пространство</div><h3><span class="pink">Магазины,</span> построенные вокруг огня</h3><p>Для компании Real Flame я разработала визуализацию<br/>их фирменного магазина.</p></div><div aria-label="Наведите, чтобы увидеть разработку магазина" class="story-media hover-pair" tabindex="0"><img alt="Визуализация магазина Real Flame" decoding="async" loading="lazy" src="realflame-03.webp"/><div class="hover-pair-images"><img alt="3D-модель магазина Real Flame" decoding="async" loading="lazy" src="store-model.webp"/><img alt="План фирменного магазина Real Flame" decoding="async" loading="lazy" src="store-plan.webp"/></div></div></div>
-<div class="mega-end"><h3>Один бренд — единый визуальный мир.</h3><div><span>Real Flame</span><span>Каталог · Мерч · Упаковка · Пространство</span></div></div>
-</section>
-<section aria-label="Development и рекламные кампании" class="case-study mega-case" id="development-case"><button aria-label="Закрыть кейс" class="case-close">×</button>
-<div class="mega-hero"><img alt="Ситиборд Монблан" decoding="async" loading="lazy" src="outdoor-citylight.webp"/><div class="mega-hero-copy"><div class="case-number">02 / Advertising systems</div><h2>Development</h2><p>Архитектура, недвижимость и финансовые продукты: визуальные концепции, которые сохраняют характер в наружной рекламе, digital, презентациях и коммуникационных материалах.</p></div></div>
-<div class="story-row light"><div class="story-text"><div class="label">01 / Монблан</div><h3><span class="pink">Архитектура</span> как главный рекламный образ</h3><p>Галс — застройщик и девелопер, который формирует новые городские пространства, соединяя архитектурную выразительность, функциональность и высокий уровень проекта.</p></div><div class="story-media clean-frame paper"><img alt="Ситиборд Монблан" decoding="async" loading="lazy" src="outdoor-citylight.webp"/></div></div>
-<div class="story-row advertising-row"><div class="story-text"><div class="label">02 / KV</div><h3><span class="pink">Рекламные</span> макеты</h3><p>Разработка и адаптация KV (Key Visual) для разных каналов: POS-материалы, полиграфия и digital-баннеры.</p></div><div aria-label="Наведите, чтобы увидеть второй рекламный макет" class="story-media hover-swap editorial-swap clean-frame dark-surface" tabindex="0"><img alt="Рекламные макеты жилого комплекса Монблан" class="hover-base" decoding="async" loading="lazy" src="ad-monblanc-clean.webp"/><img alt="Рекламный макет проекта Адмирал" class="hover-alt" decoding="async" loading="lazy" src="ad-admiral.webp"/></div></div>
-<div class="story-row light dev-prime-row"><div class="story-text"><div class="label">03 / Презентации</div><h3><span class="pink">От планировки</span><span class="line-gap">до инвестиционной истории</span></h3><p>Проект Prime на Динамо получает чёткую информационную архитектуру и премиальную визуальную подачу. Материал выстроен так, чтобы путь от исходных данных до ценности проекта считывался быстро и убедительно.</p></div><div class="story-media clean-frame paper"><img alt="Бизнес-центр класса Prime на Динамо" decoding="async" loading="lazy" src="prime-dynamo-poster.webp"/></div></div>
-<div class="story-row"><div class="story-text"><div class="label">04 / Жилые проекты</div><h3><span class="pink">Продукт</span> через атмосферу будущей жизни</h3><p>Коммуникация AFI соединяет архитектурный масштаб, городскую среду и понятные преимущества проекта. На первом экране работает эмоциональный образ, а при наведении раскрываются дополнительные сценарии и разные грани продукта.</p></div><div aria-label="Наведите, чтобы увидеть второй визуал AFI" class="story-media hover-swap full-bleed dark-surface afi-cycle strict-two-image" tabindex="0"><img alt="Архитектура будущего — уже сегодня" class="hover-base" decoding="async" loading="lazy" src="afi-main-strict.webp"/><img alt="AFI Tower" class="hover-alt" decoding="async" loading="lazy" src="afi-hover-strict.webp"/></div></div>
-<div class="mega-end"><h3><span class="pink">Архитектура,</span> данные и эмоция в одной системе.</h3><div><span>Development &amp; Advertising</span><span>Outdoor · Digital · Presentations</span></div></div>
-</section>
-<section aria-label="Журнальный дизайн" class="case-study mega-case" id="editorial-case"><button aria-label="Закрыть кейс" class="case-close">×</button>
-<div class="mega-hero"><img alt="Обложка Cosmopolitan" decoding="async" loading="lazy" src="cosmo-cover-01.webp"/><div class="mega-hero-copy"><div class="case-number">05 / Editorial design</div><h2>Журналы</h2><p>Вёрстка глянцевых изданий — это работа с ритмом, типографикой и образом. В этом разделе собраны проекты для Cosmopolitan, Wedding, TopBeauty и Queen City.</p></div></div>
-<div class="story-row light magazine-pair"><div class="story-text"><div class="label">01 / Cosmopolitan</div><h3><span class="pink">Глянцевая</span> вёрстка для массового журнала</h3><p>Опыт работы с журналом Cosmopolitan научил меня быстро собирать яркую, читаемую и коммерчески точную полосу. Внутри одного номера важно удержать баланс между громкой обложкой, рекламой и редакционным контентом.</p></div><div aria-label="Наведите, чтобы увидеть разворот Cosmopolitan" class="story-media hover-swap clean-frame paper" tabindex="0"><img alt="Обложка Cosmopolitan с Рианной" class="hover-base" decoding="async" loading="lazy" src="cosmo-cover-01.webp"/><img alt="Альтернативная обложка Cosmopolitan" class="hover-alt" decoding="async" loading="lazy" src="cosmo-cover-hover.webp"/></div></div>
-<div class="story-row magazine-pair"><div class="story-text"><div class="label">02 / Wedding</div><h3><span class="pink">Свадебный</span> журнал как атмосфера и образ</h3><p>Для журнала Wedding я выстраивала мягкий визуальный язык: романтичную типографику, воздушную композицию и съёмки, которые создают ощущение особенного события уже с обложки.</p></div><div aria-label="Наведите, чтобы увидеть альтернативную обложку Wedding" class="story-media hover-swap clean-frame paper" tabindex="0"><img alt="Обложка Wedding Любовь есть" class="hover-base" decoding="async" loading="lazy" src="wedding-love.webp"/><img alt="Альтернативная обложка Wedding Be happy" class="hover-alt" decoding="async" loading="lazy" src="wedding-happy-new.webp"/></div></div>
-<div class="story-row light"><div class="story-text"><div class="label">03 / Wedding spreads</div><h3><span class="pink">Развороты</span> журнала Wedding</h3><p>Дальше номер раскрывается через предметные съёмки, вдохновляющие mood-страницы и полноценные editorial-истории. Каждый разворот работает как отдельный кадр, но при этом сохраняет общий стиль номера.</p></div><div class="magazine-spreads"><img alt="Ювелирный разворот Wedding" decoding="async" loading="lazy" src="mag-wedding-spread-01.webp"/><img alt="Предметный разворот Wedding" decoding="async" loading="lazy" src="mag-wedding-spread-02.webp"/><img alt="Editorial story Wedding" decoding="async" loading="lazy" src="mag-wedding-spread-03.webp"/></div></div>
-<div class="story-row magazine-pair"><div class="story-text"><div class="label">04 / TopBeauty</div><h3><span class="pink">Яркая</span> обложка и разворот с характером</h3><p>TopBeauty требует более смелой пластики, насыщенного цвета и активной обложечной типографики. Здесь важна энергия, быстрая считываемость и чувство современной поп-культуры.</p></div><div aria-label="Наведите, чтобы увидеть альтернативную обложку TopBeauty" class="story-media hover-swap clean-frame paper" tabindex="0"><img alt="Обложка TopBeauty c Ксенией Собчак" class="hover-base" decoding="async" loading="lazy" src="topbeauty-cover-01.webp"/><img alt="Обложка TopBeauty с Глюкозой" class="hover-alt" decoding="async" loading="lazy" src="topbeauty-hover-01.webp"/></div></div>
-<div class="story-row light"><div class="story-text"><div class="label">05 / TopBeauty spreads</div><h3><span class="pink">Развороты</span> журнала TopBeauty</h3><p>Развороты продолжают этот ритм: крупные изображения, декоративные акценты и живая вёрстка, которая удерживает внимание и делает материал лёгким для просмотра.</p></div><div aria-label="Наведите, чтобы увидеть второй разворот TopBeauty" class="story-media clean-frame paper magazine-single hover-swap" tabindex="0"><img alt="Разворот TopBeauty в бирюзовой гамме" class="hover-base" decoding="async" loading="lazy" src="topbeauty-spread-teal.webp"/><img alt="Разворот TopBeauty в красной гамме" class="hover-alt" decoding="async" loading="lazy" src="topbeauty-spread-red.webp"/></div></div>
-<div class="story-row magazine-pair"><div class="story-text"><div class="label">06 / Queen City</div><h3><span class="pink">Глянцевая</span> обложка для городского lifestyle-журнала</h3><p>Queen City работает с более модным и светским тоном: крупный образ, чистая типографика и выразительная цветовая подача. Здесь важно сохранить ощущение журнального лоска и одновременно сделать обложку современной и запоминающейся.</p></div><div aria-label="Наведите, чтобы увидеть вторую обложку Queen City" class="story-media hover-swap clean-frame paper" tabindex="0"><img alt="Обложка Queen City To-Ma" class="hover-base" decoding="async" loading="lazy" src="queencity-cover-new.webp"/><img alt="Обложка Queen City To-Ma" class="hover-alt" decoding="async" loading="lazy" src="queencity-hover-strict.webp"/></div></div><div class="mega-end editorial-left"><h3><span class="pink">Журналы</span><br/>как ритм, атмосфера и узнаваемый визуальный голос.</h3><div><span>Cosmopolitan · Wedding · TopBeauty · Queen City</span><span>Обложки · Развороты · Вёрстка</span></div></div>
-</section>
-<section aria-label="Кейс ВТБ" class="case-study mega-case vtb-case" id="vtb-case"><button aria-label="Закрыть кейс" class="case-close">×</button>
-<div class="simple-case-hero vtb-intro-dark"><div><div class="case-number">04 / Finance communication</div><h2>ВТБ</h2><p>Неофициальная концепция! Пример продукта с единой визуальной системой: ключевой образ, полиграфия, digital-форматы и оформление офлайн-пространства.</p></div><figure><img alt="Неофициальная концепция кампании ВТБ. Семейная ипотека" decoding="async" loading="lazy" src="vtb-intro-strict.webp"/></figure></div>
-<div class="story-row light"><div class="story-text vtb-copy"><div class="label">02 / Print</div><h3><span class="pink">Полиграфия</span></h3><p>Я разработала печатные материалы для кампании семейной ипотеки: буклет, евроконверт и визуальную систему, в которой ключевая ставка, преимущества программы и сценарий обращения считываются сразу.</p><p>Важно было сохранить банковскую строгость, но сделать коммуникацию тёплой и понятной для семейной аудитории. В результате полиграфия поддержала основной образ кампании и усилила доверие к продукту.</p></div><div class="story-media clean-frame paper"><img alt="Полиграфия ВТБ. Семейная ипотека" decoding="async" loading="lazy" src="vtb-print-new.webp"/></div></div>
-<div class="story-row"><div class="story-text vtb-copy"><div class="label">03 / Social</div><h3><span class="pink">Социальные</span> сети</h3><p>Ключевой визуал был адаптирован для stories и digital-форматов. Я выстроила лаконичную серию экранов, где каждая карточка передаёт одну мысль: выгода, комфорт, простота оформления и понятный следующий шаг.</p><p>Это помогло сохранить узнаваемость кампании в мобильной среде и сделать подачу удобной для быстрого просмотра.</p></div><div class="story-media clean-frame dark-surface"><img alt="Stories для кампании ВТБ" decoding="async" loading="lazy" src="vtb-social-strict.webp"/></div></div>
-<div class="story-row light"><div class="story-text vtb-copy"><div class="label">04 / Branch</div><h3><span class="pink">Оформление</span> отделения</h3><p>Я перенесла коммуникацию в пространство отделения, чтобы рекламная кампания работала не только в наружной рекламе и digital, но и в офлайн-точке контакта с клиентом.</p><p>Так продукт стал заметным внутри интерьера, а вся система коммуникации — цельной и последовательной на каждом носителе.</p></div><div class="story-media clean-frame paper"><img alt="Оформление отделения ВТБ" decoding="async" loading="lazy" src="vtb-branch-strict.webp"/></div></div>
-<div class="case-end"><h3><span class="pink">Понятная</span> финансовая коммуникация, которая работает <br/>в разных форматах.</h3><div><span>ВТБ · Семейная ипотека</span><span>Key visual · Print · Social · Branch</span></div></div></section><section aria-label="Газетная и редакционная вёрстка" class="case-study simple-case" id="newspapers-case"><button aria-label="Закрыть кейс" class="case-close">×</button>
-<div class="simple-case-hero newspapers-hero"><div><div class="case-number">06 / Print design</div><h2>Газеты</h2><p>Газетная и редакционная вёрстка с большим объёмом информации, живой рубрикацией и рекламными модулями. Задача — сделать материал удобным для чтения и сохранить динамику полосы.</p></div><figure><img alt="Газета Центр+ и редакционная полоса" decoding="async" loading="lazy" src="newspapers-feature-strict.webp"/></figure></div><div class="story-row light"><div class="story-text"><div class="label">02 / Газетная полоса</div><h3><span class="pink">Редакционная</span> подача с живой рубрикацией</h3><p>Внутри рубрики важны ритм, иерархия и понятное распределение акцентов. Я собрала полосу так, чтобы крупный материал, справочные блоки и рекламные модули легко считывались и не спорили между собой.</p><p>При наведении открывается вторая полоса, чтобы показать, как система работает в разных темах и сохраняет узнаваемую редакционную структуру.</p></div><div aria-label="Наведите, чтобы увидеть вторую газетную полосу" class="story-media hover-swap clean-frame paper" tabindex="0"><img alt="Газетная полоса про зимний отдых" class="hover-base" decoding="async" loading="lazy" src="newspaper-main.webp"/><img alt="Газетная полоса про рецепты" class="hover-alt" decoding="async" loading="lazy" src="newspaper-hover.webp"/></div></div><div class="case-end"><h3><span class="pink">Структура</span>, которая помогает читать, а не мешает.</h3><div><span>Газета · Центр+</span><span>Вёрстка · Рубрикация · Полосы</span></div></div></section><section aria-label="Карточки товара и коммерческий дизайн" class="case-study simple-case" id="product-cards-case"><button aria-label="Закрыть кейс" class="case-close">×</button><div class="simple-case-hero"><div><div class="case-number">08 / E-commerce</div><h2>Карточки товара</h2><p>Коммерческие макеты, в которых товар быстро считывается, а преимущества выстроены в понятную визуальную иерархию. Важно показать продукт привлекательно и сразу донести, почему его стоит выбрать.</p></div><figure><img alt="Карточка товара Minty Home" decoding="async" loading="lazy" src="product-card-minty.webp"/></figure></div><div class="story-row light"><div class="story-text"><div class="label">02 / Marketplace card</div><h3><span class="pink">Товар</span> в центре внимания</h3><p>В этой карточке я собрала понятную композицию: крупный продукт, ключевые преимущества, подарок в комплекте и упаковку как подтверждение товарного сценария. Такой формат помогает быстро удержать внимание и повысить доверие к покупке.</p></div><div class="story-media clean-frame paper"><img alt="Карточка товара сковороды Minty Home" decoding="async" loading="lazy" src="product-card-minty.webp"/></div></div><div class="case-end"><h3><span class="pink">Товар</span> в центре внимания, информация — на своём месте.</h3><div><span>Карточка товара · Minty Home</span><span>E-commerce · Marketplace · Дизайн</span></div></div></section><section aria-label="Кейс редизайна каталога" class="case-study catalog-case" id="catalog-case"><button aria-label="Закрыть кейс" class="case-close">×</button>
-<div class="catalog-title-screen"><div class="catalog-title-copy"><div class="catalog-title-meta"><span>03 / Editorial</span><span>Lunera · 2026</span></div><div><h2><span>Каталог</span> как история света</h2><div class="catalog-title-intro"><div class="catalog-title-intro-block"><strong>ЗАДАЧА</strong><p>Разработать современный каталог светильников для интерьерного бренда: не просто перечень товаров, а стильное издание, которое помогает выбрать продукт и показывает его в реальной среде.</p></div><div class="catalog-title-intro-block"><strong>РЕЗУЛЬТАТ</strong><p>Каталог стал полноценным инструментом продаж: он выглядит современно, подчёркивает уровень бренда и помогает клиенту быстрее ориентироваться в ассортименте.</p></div></div></div><div class="catalog-title-meta"><span>Арт-дирекшн · Дизайн · Вёрстка</span><span>Наведите на изображение</span></div></div><figure aria-label="Наведите, чтобы увидеть второй кадр каталога" class="catalog-title-image story-media hover-swap clean-frame paper" tabindex="0"><img alt="Каталог Lunera. Обложка и разворот" class="hover-base" decoding="async" loading="lazy" src="catalog-main-2026.webp"/><img alt="Каталог Lunera с разворотом Perla" class="hover-alt" decoding="async" loading="lazy" src="catalog-hover-2026.webp"/></figure></div>
-<div class="case-end"><h3><span class="pink">Каталог</span> становится не просто перечнем товаров,<br/>а визуальной историей бренда.</h3><div><span>Lunera · Editorial</span><span>Каталог · Вёрстка · Арт-дирекшн</span></div></div>
-<div class="story-row light catalog-wilding"><div class="story-text"><div class="label">03 / Wedding</div><h3><span class="pink">Каталоги</span> Wedding</h3><p>В этой рубрике собраны каталоги, созданные для журнала Wedding — пространства, где каждый бренд раскрывается через свет, форму и настроение.</p><p>Каждый рекламодатель представил здесь свою историю: через образы, детали и визуальный язык, который говорит больше, чем слова.</p><p>Это не просто подборка — это галерея идей, характеров и эстетики, объединённых общим чувством света и вниманием к форме.</p></div><div aria-label="Наведите, чтобы увидеть второй разворот Wedding" class="story-media hover-swap full-bleed paper strict-two-image" tabindex="0"><img alt="Каталог Wedding" class="hover-base" decoding="async" loading="lazy" src="wedding-catalog-main-strict.webp"/><img alt="Разворот Wedding" class="hover-alt" decoding="async" loading="lazy" src="wedding-catalog-hover-strict.webp"/></div></div>
-</section>
-<section aria-label="Кейс Real Flame для выставки MosBuild" class="case-study mosbuild-case" id="mosbuild-case"><button aria-label="Закрыть кейс" class="case-close">×</button><div class="mosbuild-cover"><div><div class="case-number">01 / Exhibition communication</div><h2>Real Flame <span>× MosBuild</span></h2><p>Разработка мерча и полиграфии для выставки: единая визуальная подача, адаптация фирменного стиля и современное оформление брендированных носителей.</p></div><figure><img alt="Рекламные лифлеты Real Flame для MosBuild" decoding="async" loading="lazy" src="mosbuild-01.webp"/></figure></div><div class="mosbuild-story"><div class="label">02 / Задача и решение</div><div><h3>Полиграфия как продолжение выставочного стенда</h3><p>Моей задачей была разработка рекламных лифлетов для партнёров и клиентов выставки MosBuild.</p><p>Я продолжила визуальный язык стенда в полиграфии: использовала контрастную типографику, яркие цвета и графические элементы выставочной концепции.</p><p>В результате лифлеты стали частью единой коммуникации бренда. Они поддерживали оформление стенда, привлекали внимание посетителей и помогали понятно представить партнёрскую программу Real Flame.</p></div></div><div class="mosbuild-visual"><img alt="Лифлет для дизайнеров и оформление стенда Real Flame" decoding="async" loading="lazy" src="mosbuild-02.webp"/></div><div class="case-end"><h3>Один визуальный язык — от стенда до печатного носителя.</h3><div><span>Real Flame · MosBuild</span><span>Полиграфия · Арт-дирекшн</span></div></div></section>
-<section aria-label="Кейс мерча Real Flame" class="case-study simple-case" id="merch-case"><button aria-label="Закрыть кейс" class="case-close">×</button><div class="simple-case-hero"><figure><img alt="Шоппер и бутылка Real Flame" decoding="async" loading="lazy" src="rf-merch-cover.webp"/></figure><div><div class="case-number">01 / Branded merchandise</div><h2>Разработка мерча и полиграфии для выставки MosBuild</h2><p>Шоппер, бутылка, листовки и другие брендированные носители для компании Real Flame. Единая визуальная подача, адаптация фирменного стиля и современное оформление для выставочного пространства.</p></div></div><div class="simple-case-gallery"><figure><img alt="Шоппер Real Flame" decoding="async" loading="lazy" src="rf-merch-tote.webp"/></figure><figure><img alt="Бутылка Real Flame" decoding="async" loading="lazy" src="rf-merch-bottle.webp"/></figure></div><div class="case-end"><h3>Бренд, который выходит в пространство.</h3><div><span>Real Flame · MosBuild</span><span>Мерч · Полиграфия</span></div></div></section>
-<section aria-label="Кейс презентаций" class="case-study simple-case" id="presentation-case"><button aria-label="Закрыть кейс" class="case-close">×</button><div class="simple-case-hero"><div><div class="case-number">01 / Brand presentation</div><h2>Презентации</h2><p>Разные форматы презентационного дизайна: от продуктовой подачи и инфографики до структурированной визуальной системы для брендов и компаний.</p></div><figure><img alt="Презентация для компании Джилекс" decoding="async" loading="lazy" src="presentation-djileks.webp"/></figure></div><div class="simple-case-gallery"><figure class="full"><img alt="Дополнительные слайды презентации" decoding="async" loading="lazy" src="pres-02.webp"/></figure><figure class="full"><img alt="Презентация Real Flame" decoding="async" loading="lazy" src="presentation-realflame-strict.webp"/></figure></div><div class="case-end"><h3><span class="pink">Презентации · Корпоративные и продуктовые</span> информация — в ясной визуальной системе.</h3><div><span>Дизайн · Структура · Визуализация</span><span>Дизайн · Коммуникация</span></div></div></section>
-<section aria-label="Кейс упаковки Real Flame" class="case-study simple-case" id="packaging-case"><button aria-label="Закрыть кейс" class="case-close">×</button><div class="simple-case-hero"><figure><img alt="Упаковка электроочага Real Flame" decoding="async" loading="lazy" src="rf-packaging.webp"/></figure><div><div class="case-number">01 / Product packaging</div><h2>Разработка упаковки для электроочагов Real Flame</h2><p>Я разработала дизайн упаковки для линейки электроочагов Real Flame. Задача заключалась в том, чтобы создать единый визуальный принцип, который можно адаптировать под разные модели и технические характеристики.</p></div></div><div class="simple-case-gallery"><figure class="full"><img alt="Разработка системы упаковки Real Flame" decoding="async" loading="lazy" src="pack-dev-02.webp"/></figure></div><div class="case-end"><h3>Единая система для разных моделей продукта.</h3><div><span>Real Flame · Packaging</span><span>Дизайн · Вёрстка</span></div></div></section>
-<section aria-label="Кейс Real Flame" class="case-study realflame-case" id="realflame-case"><button aria-label="Закрыть кейс" class="case-close">×</button><div class="case-shelf"><div aria-hidden="true" class="case-geometry"></div><div class="case-meta"><div class="case-number">01 / Interior visualization</div><h2>Real<br/>Flame</h2><p>Концепция и визуализация фирменного магазина каминов: от обмерного плана и расстановки мебели до финального образа пространства.</p></div><div class="shelf-object"><img alt="Финальная визуализация магазина Real Flame" decoding="async" loading="lazy" src="realflame-03.webp"/></div></div><div class="case-intro"><h3>От геометрии плана к живому пространству</h3><div class="case-copy"><div><strong>Задача</strong><p>Организовать сложное помещение, сохранить свободную навигацию и сделать камины центральными объектами экспозиции.</p></div><div><strong>Решение</strong><p>Строгая модульная расстановка, контраст тёмных экспозиционных зон и светлого периметра, тёплый свет как главный эмоциональный акцент.</p></div></div></div><div class="case-spread"><div class="label">02 / Финальный вид · пространство и свет</div><img alt="Готовая визуализация Real Flame" decoding="async" loading="lazy" src="realflame-03.webp"/></div><div class="case-gallery"><figure><img alt="Черновая 3D-схема Real Flame" decoding="async" loading="lazy" src="realflame-02.webp"/></figure><figure><img alt="Планировка магазина Real Flame" decoding="async" loading="lazy" src="realflame-01.webp"/></figure><figure class="full"><img alt="Обмерный план Real Flame" decoding="async" loading="lazy" src="realflame-plan-01.webp"/></figure><figure><img alt="План осветительных центров" decoding="async" loading="lazy" src="realflame-plan-02.webp"/></figure><figure><img alt="План расстановки мебели" decoding="async" loading="lazy" src="realflame-plan-03.webp"/></figure></div><div class="case-end"><h3>Пространство, построенное вокруг огня.</h3><div><span>Планировка · Визуализация · Интерьер</span><span>Real Flame</span></div></div></section>
-<section aria-label="Кейс журнального дизайна" class="case-study" id="magazine-case"><button aria-label="Закрыть кейс" class="case-close">×</button><div class="case-shelf"><div aria-hidden="true" class="case-geometry"></div><div class="case-meta"><div class="case-number">01 / Editorial design</div><h2>Красота<br/>и здоровье</h2><p>Дизайн и вёрстка журнала. Работа с обложкой, рубрикатором, типографикой, рекламными материалами и визуальным ритмом номера.</p></div><div class="shelf-object"><img alt="Журнал на полке" decoding="async" loading="lazy" src="magazine.webp"/></div></div><div class="case-intro"><h3>Журнал как визуальная система</h3><div class="case-copy"><div><strong>Задача</strong><p>Собрать современное женское издание, в котором редакционные материалы, beauty-съёмка и коммерческие полосы выглядят частью одного мира.</p></div><div><strong>Идея</strong><p>Контраст строгой модульной сетки и живого журнального изображения. Геометрия удерживает структуру, а фотография создаёт эмоцию.</p></div></div></div><div class="case-spread"><div class="label">02 / Разворот · Editorial rhythm</div><img alt="Разворот журнала на чёрном фоне" decoding="async" loading="lazy" src="case-magazine-01.webp"/></div><div class="case-gallery"><figure><img alt="Редакционный разворот" decoding="async" loading="lazy" src="case-magazine-02.webp"/></figure><figure><img alt="Редакционный разворот" decoding="async" loading="lazy" src="case-magazine-03.webp"/></figure><figure class="full"><img alt="Разворот журнала целиком" decoding="async" loading="lazy" src="case-magazine-04.webp"/></figure><figure><img alt="Обложка журнала" decoding="async" loading="lazy" src="case-magazine-05.webp"/></figure><figure><img alt="Редакционная полоса" decoding="async" loading="lazy" src="case-magazine-06.webp"/></figure></div><div class="case-end"><h3>Дизайн, который хочется листать.</h3><div><span>Арт-дирекшн · Вёрстка · Ретушь</span><span>Следующий проект →</span></div></div></section>
-<script>
-    const buttons=document.querySelectorAll('[data-filter]'), projects=document.querySelectorAll('.project'), hero=document.querySelector('.hero'), frames=document.querySelectorAll('.word-frame'), caseStudies=document.querySelectorAll('.case-study');
-    buttons.forEach(button=>button.addEventListener('click',()=>{buttons.forEach(b=>b.classList.remove('active'));button.classList.add('active');projects.forEach(p=>p.classList.toggle('hidden',button.dataset.filter!=='all'&&p.dataset.category!==button.dataset.filter));}));
-    addEventListener('scroll',()=>{const r=hero.getBoundingClientRect(),progress=Math.min(0.999,Math.max(0,-r.top/(hero.offsetHeight-innerHeight))),next=Math.min(frames.length-1,Math.floor(progress*frames.length));frames.forEach((frame,i)=>frame.classList.toggle('active',i===next));},{passive:true});
-    document.querySelectorAll('[data-open-case]').forEach(trigger=>trigger.addEventListener('click',()=>{const target=document.querySelector(`#${trigger.dataset.openCase}-case`);target.classList.add('is-open');document.body.style.overflow='hidden';target.scrollTop=0;}));
-    const updateCaseSwaps=()=>{document.querySelectorAll('.case-scroll-swap').forEach(section=>{const next=section.querySelector('.swap-next'),max=Math.max(1,section.offsetHeight-innerHeight),progress=Math.min(1,Math.max(0,-section.getBoundingClientRect().top/max));next.style.opacity=progress;});};
-    caseStudies.forEach(item=>item.addEventListener('scroll',updateCaseSwaps,{passive:true}));
-    document.querySelectorAll('.case-close').forEach(close=>close.addEventListener('click',()=>{close.closest('.case-study').classList.remove('is-open');document.body.style.overflow='';}));
-    addEventListener('keydown',e=>{if(e.key==='Escape'){caseStudies.forEach(item=>item.classList.remove('is-open'));document.body.style.overflow='';}});
+  <header class="nav">
+    <div class="brand">Anna Chulina</div>
+    <nav class="links">
+      <a href="#works">Проекты</a>
+      <a href="#contact">Контакты</a>
+    </nav>
+  </header>
 
-    const tieShortWords = root => {
-      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-        acceptNode(node){
-          const parent = node.parentElement;
-          if(!parent) return NodeFilter.FILTER_REJECT;
-          const tag = parent.tagName;
-          if(['SCRIPT','STYLE','NOSCRIPT'].includes(tag)) return NodeFilter.FILTER_REJECT;
-          if(!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
-          return NodeFilter.FILTER_ACCEPT;
-        }
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">Портфолио · арт-дирекшн · графический дизайн</div>
+      <h1><span>Система</span> и образ для брендов, печати, презентаций и digital.</h1>
+      <p>Я работаю с визуальными системами, где важны не только красота кадра, но и структура, логика подачи и ощущение цельного бренда. В подборке ниже — презентации, полиграфия, упаковка, редакционный дизайн и карточки товара.</p>
+      <div class="hero-foot"><span>Москва · freelance / in-house</span><span>Photoshop · InDesign · Illustrator · PowerPoint · Figma</span></div>
+    </div>
+  </section>
+
+  <section class="grid-wrap" id="works">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Выбранные проекты</div>
+        <h2>Портфолио</h2>
+      </div>
+      <p>Обновлённая облегчённая версия. Ключевые блоки собраны так, чтобы портфолио открывалось быстрее и выглядело чище.</p>
+    </div>
+
+    <div class="portal-grid">
+      <button class="portal-card" data-open="realflame"><img src="packaging-light.webp" alt="Real Flame"><div class="portal-copy"><span>01 / Brand world</span><h3>Real Flame</h3></div></button>
+      <button class="portal-card" data-open="development"><img src="dev-prime-new.webp" alt="Development"><div class="portal-copy"><span>02 / Development</span><h3>Development</h3></div></button>
+      <button class="portal-card" data-open="catalog"><img src="catalog-main-2026.webp" alt="Catalog"><div class="portal-copy"><span>03 / Editorial</span><h3>Catalog</h3></div></button>
+      <button class="portal-card" data-open="vtb"><img src="vtb-print-new.webp" alt="ВТБ"><div class="portal-copy"><span>04 / Finance</span><h3>ВТБ</h3></div></button>
+      <button class="portal-card" data-open="editorial"><img src="wedding-cover-soft.webp" alt="Журналы"><div class="portal-copy"><span>05 / Editorial design</span><h3>Журналы</h3></div></button>
+      <button class="portal-card" data-open="newspapers"><img src="newspapers-mockup.webp" alt="Газеты"><div class="portal-copy"><span>06 / Print design</span><h3>Газеты</h3></div></button>
+      <button class="portal-card" data-open="presentation"><img src="presentation-djileks.webp" alt="Презентации"><div class="portal-copy"><span>07 / Presentation design</span><h3>Презентации</h3></div></button>
+      <button class="portal-card" data-open="productcards"><img src="product-cards-hero.webp" alt="Карточки товара"><div class="portal-copy"><span>08 / E-commerce</span><h3>Карточки товара</h3></div></button>
+      <button class="portal-card" data-open="packaging"><img src="packaging-light.webp" alt="Упаковка"><div class="portal-copy"><span>09 / Packaging design</span><h3>Упаковка</h3></div></button>
+    </div>
+  </section>
+
+  <section class="case-study" id="case-realflame">
+    <button class="case-close" aria-label="Закрыть">×</button>
+    <div class="case-hero reverse">
+      <figure><img src="packaging-light.webp" alt="Real Flame packaging"></figure>
+      <div class="case-meta"><div class="case-number">01 / Brand world</div><h2>Real Flame</h2><p>Бренд в разных масштабах: каталог, упаковка и презентационные материалы. Для облегчённой версии я оставила ключевые носители и убрала лишние промежуточные блоки, чтобы кейс читался быстрее.</p></div>
+    </div>
+    <div class="story-row light">
+      <div class="story-text"><div class="label">01 / Каталог</div><h3><span class="pink">Редизайн</span> продуктового каталога</h3><p>Новый каталог объединяет технические характеристики, ассортимент и интерьерные фотографии. Задача — сделать из технического издания современную презентацию бренда.</p></div>
+      <div class="story-media paper hover-swap" tabindex="0">
+        <img class="hover-base" src="catalog-main-2026.webp" alt="Каталог Real Flame">
+        <img class="hover-alt" src="catalog-hover-2026.webp" alt="Разворот каталога Real Flame">
+      </div>
+    </div>
+    <div class="story-row">
+      <div class="story-text"><div class="label">02 / Упаковка</div><h3><span class="pink">Разработка упаковки</span> для электроочагов</h3><p>В этом разделе при наведении кадры меняются. Я сохранила идею показа процесса: от итогового решения к подаче и крупному виду упаковки. Система адаптируется под разные модели и технические характеристики.</p></div>
+      <div class="story-media paper hover-cycle" tabindex="0" data-interval="900">
+        <img class="cycle-img active" src="packaging-light.webp" alt="Подача упаковки Real Flame">
+        <img class="cycle-img" src="rf-packaging-dark.webp" alt="Тёмная подача упаковки Real Flame">
+        <img class="cycle-img" src="rf-packaging-crop.webp" alt="Крупный вид упаковки Real Flame">
+      </div>
+    </div>
+    <div class="gallery">
+      <figure class="dark"><img src="presentation-extra-01.webp" alt="Real Flame Welcome program"></figure>
+      <figure class="dark"><img src="packaging-light.webp" alt="Упаковка Real Flame light"></figure>
+    </div>
+    <div class="case-end"><h3>Один бренд. <span class="pink">Цельная</span> визуальная система.</h3><div><span>Real Flame</span><span>Каталог · Упаковка · Презентационные материалы</span></div></div>
+  </section>
+
+  <section class="case-study" id="case-development">
+    <button class="case-close" aria-label="Закрыть">×</button>
+    <div class="case-hero reverse">
+      <figure class="dark-frame"><img src="prime-dynamo-poster.webp" alt="Prime на Динамо"></figure>
+      <div class="case-meta"><div class="case-number">02 / Development</div><h2><span>Презентации</span> и рекламные материалы</h2><p>В кейсе обновлён главный визуал. В блоке Prime справа теперь стоит новый постер проекта, чтобы подача выглядела чище и убедительнее.</p></div>
+    </div>
+    <div class="story-row light">
+      <div class="story-text"><div class="label">03 / Презентации</div><h3><span class="pink">От планировки</span> до инвестиционной истории</h3><p>Проект Prime на Динамо получает чёткую информационную архитектуру и премиальную визуальную подачу. Путь от исходных данных до ценности проекта считывается быстро и убедительно.</p></div>
+      <div class="story-media paper"><img src="prime-dynamo-poster.webp" alt="Prime на Динамо"></div>
+    </div>
+    <div class="story-row">
+      <div class="story-text"><div class="label">04 / Жилые проекты</div><h3><span class="pink">Продукт</span> через атмосферу будущей жизни</h3><p>При наведении кадры меняются. Третий визуал в этом блоке обновлён: теперь в цикле используется новый чистый постер AFI.</p></div>
+      <div class="story-media hover-cycle fill" tabindex="0" data-interval="950">
+        <img class="cycle-img active" src="afi-section-screen.webp" alt="AFI section screen">
+        <img class="cycle-img" src="ad-admiral.webp" alt="Admiral project visual">
+        <img class="cycle-img" src="afi-main.webp" alt="AFI main visual">
+      </div>
+    </div>
+    <div class="case-end"><h3><span class="pink">Девелопмент</span> как образ, структура и понятная история проекта.</h3><div><span>Development</span><span>Презентации · Наружная реклама · Key visual</span></div></div>
+  </section>
+
+<section class="case-study" id="case-catalog">
+    <button class="case-close" aria-label="Закрыть">×</button>
+    <div class="case-hero">
+      <div class="case-meta"><div class="case-number">03 / Editorial</div><h2><span>Catalog</span></h2><p>Каталог как современное интерьерное издание. В этой версии я упростила кейс и оставила главное: обложку, разворот и ясный текст без лишних повторов.</p></div>
+      <figure><img src="catalog-main-2026.webp" alt="Каталог светильников"></figure>
+    </div>
+    <div class="gallery">
+      <figure><img src="catalog-main-2026.webp" alt="Обложка каталога"></figure>
+      <figure><img src="catalog-hover-2026.webp" alt="Разворот каталога"></figure>
+    </div>
+    <div class="case-end"><h3><span class="pink">Каталог</span> как часть визуальной истории бренда.</h3><div><span>Editorial</span><span>Каталог · Вёрстка · Арт-дирекшн</span></div></div>
+  </section>
+
+  <section class="case-study" id="case-vtb">
+    <button class="case-close" aria-label="Закрыть">×</button>
+    <div class="case-hero">
+      <div class="case-meta"><div class="case-number">04 / Finance communication</div><h2>ВТБ</h2><p>Кампания для банковского продукта с единой визуальной системой: ключевой образ, полиграфия и понятная коммуникация для семейной аудитории.</p></div>
+      <figure><img src="vtb-campaign-board.webp" alt="ВТБ Семейная ипотека"></figure>
+    </div>
+    <div class="story-row">
+      <div class="story-text"><div class="label">02 / Print</div><h3><span class="pink">Полиграфия</span></h3><p>Неофициальная концепция. Примеры печатных материалов для кампании семейной ипотеки: буклет, евроконверт и визуальная система, в которой ключевая ставка, преимущества программы и сценарий обращения считываются сразу.</p><p>Важно сохранить банковскую строгость, сделать коммуникацию тёплой и понятной для семейной аудитории.</p></div>
+      <div class="story-media paper"><img src="vtb-print-new.webp" alt="Полиграфия ВТБ"></div>
+    </div>
+    <div class="case-end"><h3><span class="pink">Понятная</span> финансовая коммуникация для реальной семейной аудитории.</h3><div><span>ВТБ · Семейная ипотека</span><span>Print · Key visual</span></div></div>
+  </section>
+
+<section class="case-study" id="case-editorial">
+    <button class="case-close" aria-label="Закрыть">×</button>
+    <div class="case-hero reverse">
+      <figure class="paper hover-swap" tabindex="0"><img class="hover-base" src="cosmo-cover-01.webp" alt="Cosmopolitan"><img class="hover-alt" src="cosmo-cover-hover.webp" alt="Cosmopolitan alternate cover"></figure>
+      <div class="case-meta"><div class="case-number">05 / Editorial design</div><h2>Журналы</h2><p>Вёрстка и обложки для разных изданий. В этой версии блока обновлены обложки Wedding, добавлены TopBeauty и Queen City, а у части материалов появились hover-переходы.</p></div>
+    </div>
+    <div class="story-row">
+      <div class="story-text"><div class="label">01 / Cosmopolitan</div><h3><span class="pink">Глянцевая</span> вёрстка для массового журнала</h3><p>Опыт работы с журналом Cosmopolitan научил меня быстро собирать яркую, читаемую и коммерчески точную полосу. Внутри одного номера важно удержать баланс между громкой обложкой, рекламой и редакционным контентом.</p></div>
+      <div class="story-media paper hover-swap" tabindex="0">
+        <img class="hover-base" src="cosmo-cover-01.webp" alt="Cosmopolitan cover">
+        <img class="hover-alt" src="cosmo-cover-hover.webp" alt="Cosmopolitan alternate cover">
+      </div>
+    </div>
+    <div class="story-row">
+      <div class="story-text"><div class="label">02 / Wedding</div><h3><span class="pink">Свадебный</span> журнал как атмосфера и образ</h3><p>Для журнала Wedding я выстраивала мягкий визуальный язык: романтичную типографику, воздушную композицию и съёмки, которые создают ощущение особенного события уже с обложки.</p></div>
+      <div class="story-media paper hover-swap" tabindex="0">
+        <img class="hover-base" src="wedding-love.webp" alt="Wedding cover love">
+        <img class="hover-alt" src="wedding-happy-new.webp" alt="Wedding cover happy">
+      </div>
+    </div>
+    <div class="story-row light">
+      <div class="story-text"><div class="label">03 / TopBeauty spreads</div><h3><span class="pink">Развороты</span> журнала TopBeauty</h3><p>Развороты продолжают этот ритм: крупные изображения, декоративные акценты и живая вёрстка, которая удерживает внимание и делает материал лёгким для просмотра.</p></div>
+      <div class="story-media paper hover-swap" tabindex="0">
+        <img class="hover-base" src="topbeauty-spread-teal.webp" alt="TopBeauty spread teal">
+        <img class="hover-alt" src="topbeauty-spread-red.webp" alt="TopBeauty spread red">
+      </div>
+    </div>
+    <div class="story-row">
+      <div class="story-text"><div class="label">04 / Queen City</div><h3><span class="pink">Глянцевая</span> обложка для городского lifestyle-журнала</h3><p>Queen City работает с более модным и светским тоном: крупный образ, чистая типографика и выразительная цветовая подача. Здесь важно сохранить ощущение журнального лоска и одновременно сделать обложку современной и запоминающейся.</p></div>
+      <div class="story-media paper"><img src="queencity-cover-new.webp" alt="Queen City cover"></div>
+    </div>
+    <div class="story-text pink-slide"><div class="label">Editorial tone</div><h3>Как ритм, атмосфера и узнаваемый визуальный голос.</h3><p>Cosmopolitan · Wedding · TopBeauty · Queen City</p></div>
+  </section>
+
+<section class="case-study" id="case-newspapers">
+    <button class="case-close" aria-label="Закрыть">×</button>
+    <div class="case-hero">
+      <div class="case-meta"><div class="case-number">06 / Print design</div><h2>Газеты</h2><p>Газетная и редакционная вёрстка с большим объёмом информации, живой рубрикацией и рекламными модулями. В облегчённой версии я оставила один главный кадр и собрала подачу в более компактный блок.</p></div>
+      <figure><img src="newspapers-feature-new.webp" alt="Газеты Центр+"></figure>
+    </div>
+    <div class="story-row">
+      <div class="story-text"><div class="label">02 / Layout</div><h3><span class="pink">Структура</span>, которая помогает читать</h3><p>В этом проекте важно не перегрузить полосу, а сделать её удобной для чтения. Поэтому композиция строится на чёткой сетке, заметных акцентах и комфортном ритме материалов.</p></div>
+      <div class="story-media paper"><img src="newspapers-feature-new.webp" alt="Газетная вёрстка"></div>
+    </div>
+    <div class="case-end"><h3><span class="pink">Структура</span>, которая помогает читать, а не мешает.</h3><div><span>Газета · Центр+</span><span>Вёрстка · Рубрикация · Полосы</span></div></div>
+  </section>
+
+<section class="case-study" id="case-presentation">
+    <button class="case-close" aria-label="Закрыть">×</button>
+    <div class="case-hero">
+      <div class="case-meta"><div class="case-number">07 / Presentation design</div><h2>Презентации</h2><p>Разные форматы презентационного дизайна: от продуктовой подачи и инфографики до системных слайдов для брендов и компаний. В облегчённой версии я оставила только два самых уместных примера.</p></div>
+      <figure><img src="presentation-djileks.webp" alt="Презентация Джилекс"></figure>
+    </div>
+    <div class="gallery">
+      <figure class="full dark"><img src="presentation-djileks.webp" alt="Презентация Джилекс"></figure>
+      <figure class="dark"><img src="presentation-extra-01.webp" alt="Welcome программа для дизайнеров"></figure>
+    </div>
+    <div class="case-end"><h3><span class="pink">Презентации</span> как ясная визуальная система.</h3><div><span>PowerPoint · PDF · Product presentation</span><span>Структура · Дизайн · Подача</span></div></div>
+  </section>
+
+<section class="case-study" id="case-productcards">
+    <button class="case-close" aria-label="Закрыть">×</button>
+    <div class="case-hero reverse">
+      <figure class="dark-frame"><img src="product-cards-hero.webp" alt="Карточки товара маркетплейс"></figure>
+      <div class="case-meta"><div class="case-number">08 / E-commerce</div><h2>Карточки товара</h2><p>На заходной кадр этого раздела поставлен новый hero с мобильной витриной. Внутри я оставила карточку Minty Home и добавила серию карточек с подробной подачей преимуществ товара.</p></div>
+    </div>
+    <div class="gallery">
+      <figure><img src="product-card-minty.webp" alt="Карточка товара Minty Home"></figure>
+      <figure><img src="product-cards-board.webp" alt="Серия карточек товара Minty Home"></figure>
+      <figure class="full dark"><img src="product-cards-hero.webp" alt="Hero маркетплейс"></figure>
+    </div>
+    <div class="case-end"><h3><span class="pink">Товар</span> в центре внимания, информация — на своём месте.</h3><div><span>E-commerce · Marketplace</span><span>Карточки товара · Визуальная иерархия</span></div></div>
+  </section>
+
+  <section class="case-study" id="case-packaging">
+    <button class="case-close" aria-label="Закрыть">×</button>
+    <div class="case-hero reverse">
+      <div class="case-meta"><div class="case-number">09 / Product packaging</div><h2>Разработка упаковки для электроочагов Real Flame</h2><p>В этом кейсе я сохранила чистую подачу: фотография справа, текст слева. Задача — показать систему упаковки, которую можно масштабировать на всю линейку продуктов.</p></div>
+      <figure><img src="packaging-light.webp" alt="Упаковка Real Flame"></figure>
+    </div>
+    <div class="gallery">
+      <figure><img src="packaging-light.webp" alt="Упаковка light"></figure>
+      <figure class="dark"><img src="rf-packaging-dark.webp" alt="Упаковка dark"></figure>
+    </div>
+    <div class="case-end"><h3><span class="pink">Единая система</span> для разных моделей продукта.</h3><div><span>Packaging</span><span>Вёрстка · Система · Product design</span></div></div>
+  </section>
+
+  <footer id="contact" class="case-end" style="min-height:42svh">
+    <h3>Анна Чулина. <span class="pink">Портфолио</span> в облегчённой версии.</h3>
+    <div><span>anna chulina · graphic designer</span><span>Москва · presentation · editorial · packaging</span></div>
+  </footer>
+
+  <script>
+    const lockBody = (on) => { document.body.style.overflow = on ? 'hidden' : ''; };
+    document.querySelectorAll('[data-open]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = 'case-' + btn.dataset.open;
+        const el = document.getElementById(id);
+        if(el){ el.classList.add('is-open'); lockBody(true); }
       });
-      const nodes=[]; while(walker.nextNode()) nodes.push(walker.currentNode);
-      nodes.forEach(node=>{
-        node.nodeValue = node.nodeValue
-          .replace(/(^|[\s ])([А-Яа-яA-Za-zЁё])\s+(?=[А-Яа-яA-Za-zЁё])/g, '$1$2 ')
-          .replace(/(^|[\s ])([А-Яа-яA-Za-zЁё]{1,2})\s+(?=[«"\(]?[А-Яа-яA-Za-zЁё])/g, (m,prefix,word)=>{
-            if(['и','а','в','с','к','о','у','я','но','по','из','на','от','до','за','не','во','со','об','под','при'].includes(word.toLowerCase())) return prefix + word + ' ';
-            return m;
-          });
+    });
+    document.querySelectorAll('.case-close').forEach(btn => {
+      btn.addEventListener('click', () => { btn.closest('.case-study').classList.remove('is-open'); lockBody(false); });
+    });
+    document.querySelectorAll('.case-study').forEach(modal => {
+      modal.addEventListener('click', (e) => {
+        if(e.target === modal){ modal.classList.remove('is-open'); lockBody(false); }
       });
-    };
-    tieShortWords(document.body);
+    });
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape'){ document.querySelectorAll('.case-study.is-open').forEach(el => el.classList.remove('is-open')); lockBody(false); }
+    });
+
+    function bindCycle(node){
+      const imgs = [...node.querySelectorAll('.cycle-img')];
+      if(imgs.length < 2) return;
+      let i = 0, timer = null;
+      const interval = Number(node.dataset.interval || 900);
+      const show = (index) => imgs.forEach((img, idx) => img.classList.toggle('active', idx === index));
+      const start = () => {
+        if(timer) return;
+        timer = setInterval(() => { i = (i + 1) % imgs.length; show(i); }, interval);
+      };
+      const stop = () => { clearInterval(timer); timer = null; i = 0; show(i); };
+      node.addEventListener('mouseenter', start);
+      node.addEventListener('mouseleave', stop);
+      node.addEventListener('focusin', start);
+      node.addEventListener('focusout', stop);
+      show(0);
+    }
+    document.querySelectorAll('.hover-cycle').forEach(bindCycle);
   </script>
 </body>
 </html>
